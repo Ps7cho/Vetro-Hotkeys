@@ -9,7 +9,7 @@ Welcome to the best part of your job.
 
 Hotkeys:
 
-alt+x:: Close Feature Panel
+Mouse Scroll Click:: Close Feature Panel
 <br>alt+z:: Delete Feature
 <br>alt+s:: Save Feature
 <br>alt+n:: Open NAP Panel
