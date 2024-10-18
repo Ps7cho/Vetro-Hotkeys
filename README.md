@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------
 
-Vetro Hotkeys
+<h1>Vetro Hotkeys</h1>
 <br>Developed by Daniel Richards
 
 Welcome to the best part of your job.
