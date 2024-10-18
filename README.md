@@ -35,4 +35,4 @@ Mouse Scroll Click:: Close Feature Panel
 <br>
 <br>
 <br>
-<p>Disclaimer: Currently only works on Chrome and 1920x1080 resolution monitors</p>
+<p>Disclaimer: Currently only works with 1920x1080 resolution using Chrome</p>
