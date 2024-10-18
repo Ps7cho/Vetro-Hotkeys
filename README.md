@@ -36,15 +36,3 @@ Mouse Scroll Click:: Close Feature Panel
 <br>
 <br>
 <p>Disclaimer: Currently only works on Chrome and 1920x1080 resolution monitors</p>
----------------------------------------------------------------------------
-<br><h3>License</h3>
-
-CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-The person who associated a work with this deed has dedicated the work to the public domain by waiving all of their rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
-
-You can copy, modify, distribute, and perform the work, even for commercial purposes, all without asking permission.
-
-No Warranty
-The work is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the authors be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the work or the use or other dealings in the work.
-
-For more information, please refer to Creative Commons Zero (CC0) Public Domain Dedication.3.
