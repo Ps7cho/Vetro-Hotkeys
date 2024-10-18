@@ -37,7 +37,7 @@ Mouse Scroll Click:: Close Feature Panel
 <br>
 <p>Disclaimer: Currently only works on Chrome and 1920x1080 resolution monitors</p>
 ---------------------------------------------------------------------------
-License
+<br><h3>License</h3>
 
 CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
 The person who associated a work with this deed has dedicated the work to the public domain by waiving all of their rights to the work worldwide under copyright law, including all related and neighboring rights, to the extent allowed by law.
