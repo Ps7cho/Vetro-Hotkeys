@@ -28,17 +28,13 @@ Mouse Scroll Click:: Close Feature Panel
 <br>    --10:: Select 10. Violet Drop
 <br>    --11:: Select 11. Rose Drop
 <br>    --12:: Select 12. Aqua Drop
-
-
-
-
-
-
-
-
-
-
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <p>Disclaimer: Currently only works on Chrome and 1920x1080 resolution monitors</p>
 ---------------------------------------------------------------------------
 License
