@@ -10,24 +10,42 @@ Welcome to the best part of your job.
 Hotkeys:
 
 alt+x:: Close Feature Panel
+
 alt+z:: Delete Feature
+
 alt+s:: Save Feature
+
 alt+n:: Open NAP Panel
+
 alt+d:: Open Drop Panel
+
 F8:: Add Splitters to T3 *T3 must be selected first
+
 Ctrl+`:: Toggle Drop Hotkeys:
+
     1:: Select 1. Blue Drop
+
     2:: Select 2. Orange Drop
+
     3:: Select 3. Green Drop
+
     4:: Select 4. Brown Drop
+
     5:: Select 5. Slate Drop
+
     6:: Select 6. White Drop
+
     7:: Select 7. Red Drop
+
     8:: Select 8. Black Drop
+
     9:: Select 9. Yellow Drop
-   10:: Select 10. Violet Drop
-   11:: Select 11. Rose Drop
-   12:: Select 12. Aqua Drop
+
+    10:: Select 10. Violet Drop
+
+    11:: Select 11. Rose Drop
+
+    12:: Select 12. Aqua Drop
 
 
 
