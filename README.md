@@ -39,7 +39,7 @@ Mouse Scroll Click:: Close Feature Panel
 
 
 
-Disclaimer: Currently only works on Chrome
+<p>Disclaimer: Currently only works on Chrome and 1920x1080 resolution monitors</p>
 ---------------------------------------------------------------------------
 License
 
