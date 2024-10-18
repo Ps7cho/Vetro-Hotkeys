@@ -39,7 +39,7 @@ Mouse Scroll Click:: Close Feature Panel
 
 
 
-
+Disclaimer: Currently only works on Chrome
 ---------------------------------------------------------------------------
 License
 
