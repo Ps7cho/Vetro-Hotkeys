@@ -10,8 +10,8 @@ Welcome to the best part of your job.
 Hotkeys:
 
 Mouse Scroll Click:: Close Feature Panel
-<br>alt+z:: Delete Feature
-<br>alt+s:: Save Feature
+<br>ctrl+x:: Delete Feature
+<br>ctrl+s:: Save Feature
 <br>alt+n:: Open NAP Panel
 <br>alt+d:: Open Drop Panel
 <br>F8:: Add Splitters to T3 *T3 must be selected first
