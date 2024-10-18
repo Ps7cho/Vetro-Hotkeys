@@ -1,7 +1,7 @@
 ---------------------------------------------------------------------------
 
 Vetro Hotkeys
-Developed by Daniel Richards
+<br>Developed by Daniel Richards
 
 Welcome to the best part of your job.
 
