@@ -1,9 +1,9 @@
 ---------------------------------------------------------------------------
 
-<h1>Vetro Hotkeys</h1>
-<br>Developed by Daniel Richards
-
-Welcome to the best part of your job.
+<h3>Vetro Hotkeys</h3>
+Developed by Daniel Richards
+<br>
+<br>Welcome to the best part of your job.
 
 ---------------------------------------------------------------------------
 
