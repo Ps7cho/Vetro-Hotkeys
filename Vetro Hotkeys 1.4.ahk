@@ -56,14 +56,14 @@ Esc::ExitApp
 
 
 CoordMode("Mouse", "Screen")    ; Coordinates are relative to the desktop (entire screen)
-XButton1:: {
+^s:: {
     MouseGetPos(&oldX, &oldY)   ; Get current mouse position
     Click(500, 1000)             ; Perform click at (300, 400)
     MouseMove(oldX, oldY)       ; Move mouse back to original position
 }
 
 CoordMode("Mouse", "Screen")    ; Coordinates are relative to the desktop (entire screen)
-XButton2:: {
+^x:: {
     MouseGetPos(&oldX, &oldY)   ; Get current mouse position
     Click(115, 1000)             ; Perform click at (300, 400)
     Sleep 800
