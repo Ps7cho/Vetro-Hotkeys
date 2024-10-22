@@ -2,8 +2,6 @@
 
 <h3>Vetro Hotkeys</h3>
 Developed by Daniel Richards
-<br>
-<br>Welcome to the best part of your job.
 
 ---------------------------------------------------------------------------
 
