@@ -1,5 +1,3 @@
----------------------------------------------------------------------------
-
 <h3>Vetro Hotkeys</h3>
 Developed by Daniel Richards
 
@@ -19,13 +17,13 @@ Developed by Daniel Richards
 
 &nbsp;&nbsp;&nbsp;*T3 must be selected before activating hotkey
 
-<br>
+---------------------------------------------------------------------------
 <br>Personalization:
-<br>If you would like to change the hotkeys, simply right click on the file, select "edit script", and find and replace.
+<br>If you would like to change the hotkeys, right click on the file, select "edit script", and find and replace.
 <br>For ctrl+ and alt+ functions, the find and replace is ^[key] and ![hotkey], respectively. To change alt+n, for example, find and replace would look for !n
 <br>
 <br>
 <br>
 <br>
 <br>
-<p>Disclaimer: Currently only works with 1920x1080 resolution using Chrome</p>
+<p>Disclaimer: Must have a resolution of 1920x1080</p>
