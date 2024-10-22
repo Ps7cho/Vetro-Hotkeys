@@ -55,14 +55,14 @@ RemoveToolTip() {
 Esc::ExitApp
 
 CoordMode("Mouse", "Screen")    ; Coordinates are relative to the desktop (entire screen)
-^s:: {
+!s:: {
     MouseGetPos(&oldX, &oldY)   ; Get current mouse position
     Click(500, 994)             ; Adjusted from 1000 to 994
     MouseMove(oldX, oldY)       ; Move mouse back to original position
 }
 
 CoordMode("Mouse", "Screen")    ; Coordinates are relative to the desktop (entire screen)
-^x:: {
+!x:: {
     MouseGetPos(&oldX, &oldY)   ; Get current mouse position
     Click(115, 994)             ; Adjusted from 1000 to 994
     Sleep 800
