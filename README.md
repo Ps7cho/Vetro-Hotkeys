@@ -29,7 +29,9 @@ Mouse Scroll Click:: Close Feature Panel
 <br>    --11:: Select 11. Rose Drop
 <br>    --12:: Select 12. Aqua Drop
 <br>
-<br>
+<br>Personalization:
+<br>If you would like to change the hotkeys, simply right click on the file, select "edit script", and find and replace.
+<br>For ctrl+ and alt+ functions, the find and replace is ^[key] and ![hotkey], respectively. To change alt+n, for example, find and replace would look for !n
 <br>
 <br>
 <br>
