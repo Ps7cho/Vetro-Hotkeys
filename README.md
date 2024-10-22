@@ -9,26 +9,20 @@ Developed by Daniel Richards
 
 Hotkeys:
 
-Mouse Scroll Click:: Close Feature Panel
-<br>ctrl+x:: Delete Feature
-<br>ctrl+s:: Save Feature
-<br>alt+n:: Open NAP Panel
-<br>alt+d:: Open Drop Panel
-<br>F9:: Add Splitters to T3 (T3 must be selected before activating hotkey)
-<br>F10:: Add Trays to T3 (T3 must be selected before activating hotkey)
-<br>Ctrl+`:: Toggle Drop Hotkeys:
-<br>    --1:: Select 1. Blue Drop
-<br>    --2:: Select 2. Orange Drop
-<br>    --3:: Select 3. Green Drop
-<br>    --4:: Select 4. Brown Drop
-<br>    --5:: Select 5. Slate Drop
-<br>    --6:: Select 6. White Drop
-<br>    --7:: Select 7. Red Drop
-<br>    --8:: Select 8. Black Drop
-<br>    --9:: Select 9. Yellow Drop
-<br>    --10:: Select 10. Violet Drop
-<br>    --11:: Select 11. Rose Drop
-<br>    --12:: Select 12. Aqua Drop
+| Hotkey        | Action                                      |
+|---------------|---------------------------------------------|
+| Mouse Scroll Click | Close Feature Panel                     |
+| alt+x        | Delete Feature                              |
+| alt+s        | Save Feature                                |
+| alt+n         | Open NAP Panel                             |
+| alt+d         | Open Drop Panel                            |
+| F9*           | Add Splitters to T3                        |
+| F10*          | Add Trays to T3                        |
+| Ctrl+`        | Toggle Drop Hotkeys:                       |
+| 1-12 | Select Colors (1. Blue, 2. Orange, 3. Green, 4. Brown, 5. Slate, 6. White, 7. Red, 8. Black, 9. Yellow, 10. Violet, 11. Rose, 12. Aqua) |
+
+&nbsp;&nbsp;&nbsp;*T3 must be selected before activating hotkey
+
 <br>
 <br>Personalization:
 <br>If you would like to change the hotkeys, simply right click on the file, select "edit script", and find and replace.
