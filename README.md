@@ -14,7 +14,8 @@ Mouse Scroll Click:: Close Feature Panel
 <br>ctrl+s:: Save Feature
 <br>alt+n:: Open NAP Panel
 <br>alt+d:: Open Drop Panel
-<br>F8:: Add Splitters to T3 *T3 must be selected first
+<br>F9:: Add Splitters to T3 (T3 must be selected before activating hotkey)
+<br>F10:: Add Trays to T3 (T3 must be selected before activating hotkey)
 <br>Ctrl+`:: Toggle Drop Hotkeys:
 <br>    --1:: Select 1. Blue Drop
 <br>    --2:: Select 2. Orange Drop
