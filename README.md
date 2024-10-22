@@ -5,8 +5,6 @@ Developed by Daniel Richards
 
 ---------------------------------------------------------------------------
 
-Hotkeys:
-
 | Hotkey        | Action                                      |
 |---------------|---------------------------------------------|
 | Mouse Scroll Click | Close Feature Panel                     |
