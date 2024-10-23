@@ -51,8 +51,6 @@ RemoveToolTip() {
     ToolTip("")  ; Clear the tooltip
 }
 
-; Exit script with ESC
-Esc::ExitApp
 
 CoordMode("Mouse", "Screen")    ; Coordinates are relative to the desktop (entire screen)
 !s:: {
@@ -369,3 +367,7 @@ F10::
         Sleep 200
     }
 }
+
+
+; Exit script with ESC
+Esc::ExitApp
