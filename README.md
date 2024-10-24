@@ -1,5 +1,5 @@
 <h3>Vetro Hotkeys</h3>
-Developed by Daniel Richards
+Developed by dantheplannerman
 
 ---------------------------------------------------------------------------
 
