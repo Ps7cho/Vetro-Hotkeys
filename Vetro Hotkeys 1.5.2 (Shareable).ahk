@@ -370,4 +370,4 @@ F10::
 
 
 ; Exit script with ESC
-Esc::ExitApp
+Esc::Reload
