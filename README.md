@@ -5,6 +5,7 @@ Developed by dantheplannerman
 
 | Hotkey        | Action                                      |
 |---------------|---------------------------------------------|
+| Esc | Stop Action                                           |
 | Mouse Scroll Click | Close Feature Panel                     |
 | alt+x        | Delete Feature                              |
 | alt+s        | Save Feature                                |
