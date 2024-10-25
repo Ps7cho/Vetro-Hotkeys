@@ -101,8 +101,8 @@ MButton:: {
     Send "{tab}"
     Sleep 70
 
-    ; Press the down arrow key 7 times
-    Send "{Down 7}"
+    ; Select "Drop"
+    Send "{Down 8}"
     Sleep 70
 
     ; Press Tab 2 times
