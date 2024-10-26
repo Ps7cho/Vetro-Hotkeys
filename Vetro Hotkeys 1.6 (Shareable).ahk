@@ -371,3 +371,342 @@ F10::
 
 ; Exit script with ESC
 Esc::Reload
+
+
+
+
+;-----------------------------------------------------------------------
+;Discovery Addons
+
+!m::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 22}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 14}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 13}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab 3}"
+Sleep 70
+
+; Press '1'
+Send "{Down 1}"
+Sleep 70
+
+; Press Tab
+Send "{Tab 5}"
+Sleep 70
+
+; Press Space
+Send "{Space}"
+Sleep 70
+
+; Press Tab and enter '54'
+Send "{Tab 54}"
+Sleep 70
+
+}
+
+
+!p::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 21}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 15}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 3}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab}"
+Sleep 70
+
+}
+
+
+!o::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 21}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 15}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 2}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab 2}"
+Sleep 70
+
+}
+
+
+!l::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 22}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 14}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 12}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab 2}"
+Sleep 70
+
+; Press Space
+Send "{Space}"
+Sleep 70
+
+; Press Tab and enter '54'
+Send "+{Tab}"
+Sleep 70
+
+}
+
+
+!,::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 22}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 14}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 22}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab 2}"
+Sleep 70
+
+; Press '1'
+Send "{Space}"
+Sleep 70
+
+; Press Tab
+Send "+{Tab}"
+Sleep 70
+
+Send "PUE "
+
+}
+
+!.::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 22}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 14}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 22}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab 2}"
+Sleep 70
+
+; Press '1'
+Send "{Space}"
+Sleep 70
+
+; Press Tab
+Send "+{Tab}"
+Sleep 70
+
+Send "ROW "
+
+}
+
+!k::
+{
+CoordMode("Mouse", "Screen")
+
+; Store the original mouse position
+MouseGetPos(&originalX, &originalY)
+
+; Click at coordinates (1892, 252) - Pencil
+Click 1892, 252
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
+
+; Select "line"
+Send "+{Tab 22}"
+Sleep 70
+
+; Select
+Send "{Enter}"
+Sleep 70
+
+; tab over
+Send "+{tab 14}"
+Sleep 70
+
+; tab over
+Send "{tab}"
+Sleep 70
+
+; Select "messenger wire"
+Send "{Down 25}"
+Sleep 70
+
+; Press Tab 2 times
+Send "{Tab 2}"
+Sleep 70
+
+; Press '1'
+Send "{Space}"
+Sleep 70
+
+; Press Tab
+Send "+{Tab}"
+Sleep 70
+
+Send "Road Centerline "
+
+}
+
+;-----------------------------------------------------------------------
