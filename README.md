@@ -15,6 +15,14 @@ Developed by dantheplannerman
 | F10*          | Add Trays to T3                        |
 | Ctrl+`        | Toggle Drop Hotkeys:                       |
 | 1-12 | Select Colors (1. Blue, 2. Orange, 3. Green, 4. Brown, 5. Slate, 6. White, 7. Red, 8. Black, 9. Yellow, 10. Violet, 11. Rose, 12. Aqua) |
+|||
+| alt+m | Open Messenger Wire Panel                         |
+| alt+p | Open Polygon Panel                         |
+| alt+o | Open PLAT Map Link Panel                         |
+| alt+l | Open Length Panel                         |
+| alt+, | Open PUE Panel                         |
+| alt+. | Open ROW Panel                         |
+| alt+k | Open ROW Centerline Panel                         |
 
 &nbsp;&nbsp;&nbsp;*T3 must be selected before activating hotkey
 
