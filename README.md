@@ -35,4 +35,4 @@ Developed by dantheplannerman
 <br>
 <br>
 <br>
-<p>Disclaimer: Must have a resolution of 1920x1080</p>
+<p>Disclaimer: Must have a resolution of 1920x1080, must be on Chrome or Edge--best functionality is on Chrome</p>
