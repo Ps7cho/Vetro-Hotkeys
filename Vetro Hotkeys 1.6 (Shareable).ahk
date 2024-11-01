@@ -553,11 +553,13 @@ Sleep 70
 
 ; Press Space
 Send "{Space}"
-Sleep 70
+Sleep 200
 
-; Press Tab and enter '54'
-Send "+{Tab}"
-Sleep 70
+; Click Total Length
+Click 111, 469
+Sleep 70  ; Short delay to allow for processing
+
+MouseMove(originalX, originalY)
 
 }
 
