@@ -548,7 +548,7 @@ Send "{Down 12}"
 Sleep 70
 
 ; Press Tab 2 times
-Send "{Tab 2}"
+Send "{Tab 3}"
 Sleep 70
 
 ; Press Space
@@ -556,10 +556,10 @@ Send "{Space}"
 Sleep 200
 
 ; Click Total Length
-Click 111, 469
-Sleep 70  ; Short delay to allow for processing
+Send "+{Tab 2}"
 
-MouseMove(originalX, originalY)
+; Click Total Length
+Send "{Tab}"
 
 }
 
