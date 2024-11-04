@@ -692,7 +692,7 @@ Send "{tab}"
 Sleep 70
 
 ; Select "messenger wire"
-Send "{Down 25}"
+Send "{Down 26}"
 Sleep 70
 
 ; Press Tab 2 times
