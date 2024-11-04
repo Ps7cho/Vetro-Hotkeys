@@ -593,8 +593,8 @@ Sleep 70
 Send "{tab}"
 Sleep 70
 
-; Select "messenger wire"
-Send "{Down 22}"
+; Select "PUE & ROW"
+Send "{Down 23}"
 Sleep 70
 
 ; Press Tab 2 times
@@ -643,7 +643,7 @@ Send "{tab}"
 Sleep 70
 
 ; Select "messenger wire"
-Send "{Down 22}"
+Send "{Down 23}"
 Sleep 70
 
 ; Press Tab 2 times
