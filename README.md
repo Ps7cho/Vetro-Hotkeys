@@ -1,3 +1,25 @@
+<h3>Vetro Workspace</h3>
+Developed by dantheplannerman
+
+---------------------------------------------------------------------------
+
+| Hotkey        | Action                                      |
+|---------------|---------------------------------------------|
+| Ctrl+s | Save Feature                                       |
+| alt+x | Delete Feature                                     |
+| Mouse Scroll Click | Close Feature Panel                   |
+| alt+q        | Unlock Edit Mode                            |
+|||
+| alt+m         | Open Messenger Wire Panel                  |
+| alt+u         | Open Units Panel                           |
+| alt+p         | Open PLAT Map Link Panel                   |
+| alt+l         | Open Length Panel                          |
+| alt+k         | Open ROW Centerline Panel                       |
+
+&nbsp;&nbsp;&nbsp;*Vetro Workspace is focused on Discovery currently. Additional Features will be added further on
+
+---------------------------------------------------------------------------
+
 <h3>Vetro Hotkeys</h3>
 Developed by dantheplannerman
 
