@@ -5,7 +5,7 @@ Developed by dantheplannerman
 
 | Hotkey        | Action                                      |
 |---------------|---------------------------------------------|
-| Ctrl+s | Save Feature                                       |
+| ctrl+s | Save Feature                                       |
 | alt+x | Delete Feature                                     |
 | Mouse Scroll Click | Close Feature Panel                   |
 | alt+q        | Unlock Edit Mode                            |
