@@ -5,9 +5,9 @@ Developed by dantheplannerman
 
 | Hotkey        | Action                                      |
 |---------------|---------------------------------------------|
-| ctrl+s | Save Feature                                       |
-| alt+x | Delete Feature                                     |
-| Mouse Scroll Click | Close Feature Panel                   |
+| ctrl+s / XButton1 | Save Feature                                       |
+| alt+x / XButton2 | Delete Feature                                     |
+| Esc / MButton | Close Feature Panel                   |
 | alt+q        | Unlock Edit Mode                            |
 |||
 | alt+m         | Open Messenger Wire Panel                  |
@@ -17,6 +17,7 @@ Developed by dantheplannerman
 | alt+k         | Open ROW Centerline Panel                       |
 
 &nbsp;&nbsp;&nbsp;*Vetro Workspace is focused on Discovery currently. Additional Features will be added further on
+<br>&nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.
 
 ---------------------------------------------------------------------------
 
