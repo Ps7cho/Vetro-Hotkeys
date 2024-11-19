@@ -3,21 +3,30 @@ Developed by dantheplannerman
 
 ---------------------------------------------------------------------------
 
-| Hotkey        | Action                                      |
-|---------------|---------------------------------------------|
-| ctrl+s / XButton1 | Save Feature                                       |
-| alt+x / XButton2 | Delete Feature                                     |
-| Esc / MButton | Close Feature Panel                   |
-| alt+q        | Unlock Edit Mode                            |
-|||
-| alt+m         | Open Messenger Wire Panel                  |
-| alt+u         | Open Units Panel                           |
-| alt+p         | Open PLAT Map Link Panel                   |
-| alt+l         | Open Length Panel                          |
-| alt+k         | Open ROW Centerline Panel                       |
+| **Hotkey**     | **Action**           |
+|----------------|----------------------|
+| **General Hotkeys** |                      |
+| ctrl+s         | Save                 |
+| alt+x          | Delete               |
+| Esc            | Close Panel          |
+| **Discovery Mode** |                      |
+| Alt+F1         | Enter Discovery Mode       |
+| alt+m          | Messenger Wire       |
+| alt+u          | Units                |
+| alt+p          | Plat Map Link        |
+| alt+,          | PUE                  |
+| alt+.          | ROW                  |
+| alt+k          | ROW Centerline       |
+| **Planning Mode** |                      |
+| Alt+F2         | Enter Planning Mode        |
+| alt+a          | Preliminary Drops    |
+| alt+v          | Vaults               |
+| alt+c          | Conduit              |
+| alt+f          | Fiber                |
+| alt+d          | Drops                |
 
-&nbsp;&nbsp;&nbsp;*Vetro Workspace is focused on Discovery currently. Additional Features will be added further on
-<br>&nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.
+
+&nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.
 
 ---------------------------------------------------------------------------
 
