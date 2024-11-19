@@ -21,7 +21,7 @@ Developed by dantheplannerman
 
 ---------------------------------------------------------------------------
 
-<h3>Vetro Hotkeys</h3>
+<h3>Vetro Hotkeys *Deprecated</h3>
 Developed by dantheplannerman
 
 ---------------------------------------------------------------------------
