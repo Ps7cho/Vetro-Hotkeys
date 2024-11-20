@@ -67,22 +67,48 @@ Delete() {
     ; Function to delete in Chrome or Edge
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
-        try {
-            chromeEl.ElementFromPath(deletePathC*).Invoke()
-            chromeEl.WaitElementFromPath(featureDeletionPathC*).Invoke()
-        } catch {
-            ; Ignore if the path isn’t found
+        
+        ; Find the "Delete" button
+        deleteButton := FindButtonByName(chromeEl, "Delete")
+        
+        if deleteButton {
+            try {
+                deleteButton.Invoke()
+                ; Optional: Wait for confirmation or next action
+                chromeEl.WaitElementFromPath(featureDeletionPathC*).Invoke()
+            } catch {
+                ; Ignore if the path isn’t found
+            }
         }
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
-        try {
-            edgeEl.ElementFromPath(deletePathE*).Invoke()
-            edgeEl.WaitElementFromPath(featureDeletionPathE*).Invoke()
-        } catch {
-            ; Ignore if the path isn’t found
+        
+        ; Find the "Delete" button
+        deleteButton := FindButtonByName(edgeEl, "Delete")
+        
+        if deleteButton {
+            try {
+                deleteButton.Invoke()
+                ; Optional: Wait for confirmation or next action
+                edgeEl.WaitElementFromPath(featureDeletionPathE*).Invoke()
+            } catch {
+                ; Ignore if the path isn’t found
+            }
         }
     }
 }
+
+; Function to find a button by its Name
+FindButtonByName(rootElement, partialName) {
+    buttons := rootElement.FindAll({Type: "Button"})
+    for button in buttons {
+        if (InStr(button.Name, partialName)) {
+            return button
+        }
+    }
+    return 0 ; Return 0 if no matching button is found
+}
+
 
 ClosePanel() {
     ; Function to close a panel in Chrome or Edge
