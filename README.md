@@ -23,7 +23,23 @@ Developed by dantheplannerman
 | alt+v          | Vaults               |
 | alt+c          | Conduit              |
 | alt+f          | Fiber                |
+|||
 | alt+d          | Drops                |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1         | 1 - Blue             |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2         | 2 - Orange           |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3         | 3 - Green            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4         | 4 - Brown            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5         | 5 - Slate            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6         | 6 - White            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7         | 7 - Red              |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8         | 8 - Black            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9         | 9 - Yellow           |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10         | 10 - Violet          |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11         | 11 - Rose            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12         | 12 - Aqua            |
+
+
+
 
 
 &nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.
