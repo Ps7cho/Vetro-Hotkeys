@@ -5,20 +5,24 @@ Developed by dantheplannerman
 
 | **Hotkey**     | **Action**           |
 |----------------|----------------------|
-| **General Hotkeys** |                      |
+|||
+| **General Hotkeys** |                 |
+|||
 | ctrl+s         | Save                 |
 | alt+x          | Delete               |
 | Esc            | Close Panel          |
-| **Discovery Mode** |                      |
-| Alt+F1         | Enter Discovery Mode       |
+|||
+| **Alt+F1** |  **Discovery Mode**      |
+|||
 | alt+m          | Messenger Wire       |
 | alt+u          | Units                |
 | alt+p          | Plat Map Link        |
 | alt+,          | PUE                  |
 | alt+.          | ROW                  |
 | alt+k          | ROW Centerline       |
-| **Planning Mode** |                      |
-| Alt+F2         | Enter Planning Mode        |
+|||
+| **Alt+F2** |  **Planning Mode**       |
+|||
 | alt+a          | Preliminary Drops    |
 | alt+v          | Vaults               |
 | alt+c          | Conduit              |
