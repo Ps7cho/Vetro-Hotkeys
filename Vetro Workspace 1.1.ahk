@@ -100,6 +100,13 @@ ClosePanel() {
             ; Ignore if the path isn’t found
         }
     }
+    global SubMode
+
+    ; Check if SubMode is not empty
+    if (SubMode != "") {
+        ; Deactivate the current SubMode
+        SubMode := "" ; Reset SubMode
+    }
 }
 
 Unlock() {
@@ -217,25 +224,22 @@ Polygon() {
 ; Mode-Based Hotkeys
 ;----------------------------------------------------------------------
 
-; Define a global variable to track the current mode
+#Requires AutoHotkey v2.0
+
 global Mode := ""
 
-; Alt+F1: Activate Discovery Mode
 !F1:: {
     SetMode("Discovery")
 }
 
-; Alt+F2: Activate Planning Mode
 !F2:: {
     SetMode("Planning")
 }
 
-; Alt+F3: Activate Data Entry Mode
 !F3:: {
     SetMode("Data Entry")
 }
 
-; Function to manage modes
 SetMode(newMode) {
     global Mode
     if (Mode != newMode) {
@@ -249,6 +253,23 @@ SetMode(newMode) {
         ToolTip(Mode " Mode Deactivated")
         Mode := ""
         Sleep(1000) ; Briefly show deactivation message
+        ToolTip("")
+    }
+}
+
+global SubMode :=""
+
+SetSubMode(newSubMode) {
+    global SubMode
+    if (SubMode != newSubMode) {
+        SubMode := newSubMode
+        ToolTip(SubMode " Submode Activated")
+        Sleep(1000)
+        ToolTip("")
+    } Else {
+        ToolTip(SubMode " Submode Deactivated")
+        Submode := ""
+        Sleep(1000)
         ToolTip("")
     }
 }
@@ -267,7 +288,24 @@ SetMode(newMode) {
 !v::Vaults()
 !c::Conduit()
 !f::Fiber()
-!d::Drops()
+!d:: {
+    Drops()
+    SetSubMode("Drops")
+}
+
+#HotIf (SubMode = "Drops")
+1::Blue()
+2::Orange()
+3::Green()
+4::Brown()
+5::Slate()
+6::White()
+7::Red()
+8::Black()
+9::Yellow()
+0::Violet()
+-::Rose()
+=::Aqua()
 
 
 #HotIf (Mode = "Data")
@@ -663,3 +701,97 @@ Drops() {
         }
     }
 }
+
+    DropColorPath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}]
+    bluepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
+    orangepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"2 - Orange"}]
+    greenpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"3 - Green"}]
+    brownpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"4 - Brown"}]
+    slatepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"5 - Slate"}]
+    whitepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"6 - White"}]
+    redpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"7 - Red"}]
+    blackpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"8 - Black"}]
+    yellowpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"9 - Yellow"}]
+    violetpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"10 - Violet"}]
+    rosepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"11 - Rose"}]
+    aquapath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"12 - Aqua"}]
+    NotePathC := [{T:30}, {T:26, i:-1}, {T:4,A:"input-note"}]
+
+    SetDropColor(expectedValue, pathToSelectColor, NotePathC) {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                dropColorElement := chromeEl.ElementFromPath(DropColorPath*)
+                currentValue := dropColorElement.Value
+                if (currentValue != expectedValue) {
+                    dropColorElement.Invoke()
+                    chromeEl.WaitElementFromPath(pathToSelectColor*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(NotePathC*).Invoke()
+            } catch {
+                ; Handle errors gracefully
+            }
+        } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            edgeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                dropColorElement := edgeEl.ElementFromPath(DropColorPath*)
+                currentValue := dropColorElement.Value
+                if (currentValue != expectedValue) {
+                    dropColorElement.Invoke()
+                    edgeEl.WaitElementFromPath(pathToSelectColor*).Invoke()
+                }
+                edgeEl.WaitElementFromPath(NotePathC*).Invoke()
+            } catch {
+                ; Handle errors gracefully
+            }
+        }
+    }
+    
+    Blue() {
+        SetDropColor("1 - Blue", bluepath, NotePathC)
+    }
+    
+    Orange() {
+        SetDropColor("2 - Orange", orangepath, NotePathC)
+    }
+    
+    Green() {
+        SetDropColor("3 - Green", greenpath, NotePathC)
+    }
+    
+    Brown() {
+        SetDropColor("4 - Brown", brownpath, NotePathC)
+    }
+    
+    Slate() {
+        SetDropColor("5 - Slate", slatepath, NotePathC)
+    }
+    
+    White() {
+        SetDropColor("6 - White", whitepath, NotePathC)
+    }
+    
+    Red() {
+        SetDropColor("7 - Red", redpath, NotePathC)
+    }
+    
+    Black() {
+        SetDropColor("8 - Black", blackpath, NotePathC)
+    }
+    
+    Yellow() {
+        SetDropColor("9 - Yellow", yellowpath, NotePathC)
+    }
+    
+    Violet() {
+        SetDropColor("10 - Violet", violetpath, NotePathC)
+    }
+    
+    Rose() {
+        SetDropColor("11 - Rose", rosepath, NotePathC)
+    }
+    
+    Aqua() {
+        SetDropColor("12 - Aqua", aquapath, NotePathC)
+    }
+    
