@@ -335,9 +335,8 @@ SetSubMode(newSubMode) {
 =::Aqua()
 
 
-#HotIf (Mode = "Data")
-!t::MsgBox("Data Entry Mode: Alt+T triggered!")
-!y::MsgBox("Data Entry Mode: Alt+Y triggered!")
+#HotIf (Mode = "Data Entry")
+!n::Naps()
 
 #HotIf
 
@@ -822,3 +821,45 @@ Drops() {
         SetDropColor("12 - Aqua", aquapath, NotePathC)
     }
     
+
+;----------------------------------------------------------------------
+    ;Data Entry Hotkeys
+
+    NapPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"NAP"}]
+    TypePathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}]
+    TypeSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}, {T:8}, {T:7,N:"UG NAP"}]
+    LocationPathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}]
+    LocationSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
+    FiberCountPathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}]
+    FiberCountSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
+
+    Naps() {
+        ClosePanel()
+        Point()
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                chromeEl.WaitElementFromPath(NapPathC*).Invoke()
+                chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
+                chromeEl.WaitElementFromPath(TypePathC*).Invoke()
+                chromeEl.WaitElementFromPath(TypeSelectC*).Invoke()
+                chromeEl.WaitElementFromPath(LocationPathC*).Invoke()
+                chromeEl.WaitElementFromPath(LocationSelectC*).Invoke()
+                chromeEl.WaitElementFromPath(FiberCountPathC*).Invoke()
+                chromeEl.WaitElementFromPath(FiberCountSelectC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
+                chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+
+            } catch {
+                ; Ignore if the path isn’t found
+            }
+        } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            edgeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                edgeEl.WaitElementFromPath({T:33,CN:"BrowserRootView"}, {T:33}, {T:33}, {T:33,CN:"BrowserView"}, {T:33,CN:"SidebarContentsSplitView"}, {T:33}, {T:33}, {T:33}, {T:33}, {T:33}, {T:30}, {T:26}, {T:26}, {T:26,CN:"ant-layout-content css-14c5p6x"}, {T:5}, {T:20}*).Invoke()
+    
+            } catch {
+                ; Ignore if the path isn’t found
+            }
+        }
+    }
