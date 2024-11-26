@@ -1,27 +1,73 @@
 <h3>Vetro Workspace</h3>
 Developed by dantheplannerman
 
+### General Hotkeys
+| Hotkey  | Action          |
+|---------|-----------------|
+| Ctrl+S  | Save            |
+| Alt+X   | Delete          |
+| Esc     | Close Panel     |
+
+### Discovery Mode (Alt+F1)
+| Hotkey  | Action                  |
+|---------|-------------------------|
+| Alt+M   | Messenger Wire          |
+| Alt+U   | Units                   |
+| Alt+P   | Plat Map Link           |
+| Alt+,   | PUE                     |
+| Alt+.   | ROW                     |
+| Alt+K   | ROW Centerline          |
+
+### Allocation Mode (Alt+F2)
+| Hotkey  | Action                 |
+|---------|------------------------|
+| Alt+A   | Preliminary Drops      |
+| Alt+V   | Vaults                 |
+| Alt+C   | Conduit                |
+| Alt+F   | Fiber                  |
+| Alt+D   | Drops                  |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1         | 1 - Blue             |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2         | 2 - Orange           |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3         | 3 - Green            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4         | 4 - Brown            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5         | 5 - Slate            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6         | 6 - White            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7         | 7 - Red              |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8         | 8 - Black            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9         | 9 - Yellow           |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0         | 10 - Violet          |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-         | 11 - Rose            |
+|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=         | 12 - Aqua            |
+
+### Allocation Mode (Alt+F3)
+| Hotkey  | Action |
+|---------|--------|
+| Alt+N   | NAPs   |
+
+
 ---------------------------------------------------------------------------
 
-| **Hotkey**     | **Action**           |
-|----------------|----------------------|
-|||
 | **General Hotkeys** |                 |
+|----------------|----------------------|
 |||
 | ctrl+s         | Save                 |
 | alt+x          | Delete               |
 | Esc            | Close Panel          |
-|||
-| **Alt+F1** |  **Discovery Mode**      |
-|||
+
+
+| **Discovery Mode**     |  |
+|----------------|----------------------|
+| alt+F1 | Activate Discovery Mode |
+||
 | alt+m          | Messenger Wire       |
 | alt+u          | Units                |
 | alt+p          | Plat Map Link        |
 | alt+,          | PUE                  |
 | alt+.          | ROW                  |
 | alt+k          | ROW Centerline       |
-|||
-| **Alt+F2** |  **Planning Mode**       |
+
+| **Allocation Mode**     | **Alt+F2**   |
+|----------------|----------------------|
 |||
 | alt+a          | Preliminary Drops    |
 | alt+v          | Vaults               |
@@ -41,8 +87,10 @@ Developed by dantheplannerman
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10         | 10 - Violet          |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11         | 11 - Rose            |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12         | 12 - Aqua            |
-|||
-| **Alt+F3** |  **Data Entry Mode**       |
+
+
+| **Allocation Mode**     | **Alt+F3**   |
+|----------------|----------------------|
 |||
 | Alt+n      |  NAPs                     |
 
