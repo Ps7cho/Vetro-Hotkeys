@@ -11,7 +11,7 @@ Developed by dantheplannerman
 | Esc     | Close Panel     |
 | Alt+Esc | Refresh Hotkeys |
 
-&nbsp;&nbsp; *If any hokey isn't working, try Alt+Esc
+&nbsp;&nbsp; *If any hokey isn't working, do Alt+Esc then try again.
 ### Discovery Mode (Alt+F1)
 | Hotkey  | Action                  |
 |---------|-------------------------|
