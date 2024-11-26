@@ -172,6 +172,7 @@ PolygonPathE := [{T:33,CN:"BrowserRootView"}, {T:33}, {T:33}, {T:33,CN:"BrowserV
 
 Point() {
     ClosePanel()
+    Sleep 100
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
@@ -197,6 +198,7 @@ Point() {
 
 Line() {
     ClosePanel()
+    Sleep 100
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
@@ -222,6 +224,7 @@ Line() {
 
 Polygon() {
     ClosePanel()
+    Sleep 100
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
@@ -383,10 +386,10 @@ SetSubMode(newSubMode) {
 
     
 Messenger() {
+    Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             chromeEl.WaitElementFromPath(MessengerPathC*).Invoke()
             chromeEl.WaitElementFromPath(UsingPathC*).Invoke()
             chromeEl.WaitElementFromPath(UsingSelectPathC*).Invoke()
@@ -399,7 +402,6 @@ Messenger() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             edgeEl.WaitElementFromPath({T:33,CN:"BrowserRootView"}, {T:33}, {T:33}, {T:33,CN:"BrowserView"}, {T:33,CN:"SidebarContentsSplitView"}, {T:33}, {T:33}, {T:33}, {T:33}, {T:33}, {T:30}, {T:26}, {T:26}, {T:26,CN:"ant-layout-content css-14c5p6x"}, {T:5}, {T:20}*).Invoke()
             edgeEl.WaitElementFromPath(MessengerPathE*).Invoke()
             edgeEl.WaitElementFromPath(UsingPathE*).Invoke()
@@ -414,10 +416,10 @@ Messenger() {
 }
 
 Units() {
+    Polygon()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Polygon()
             chromeEl.WaitElementFromPath(UnitsPathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
         } catch {
@@ -426,8 +428,6 @@ Units() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
-            Polygon()
             edgeEl.WaitElementFromPath(UnitsPathE*).Invoke()
             edgeEl.WaitElementFromPath(NamePathE*).Invoke() ;name
         } catch {
@@ -437,10 +437,10 @@ Units() {
 }
 
 Plat() {
+    Polygon()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Polygon()
             chromeEl.WaitElementFromPath(PLATMapLinksPathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
         } catch {
@@ -449,7 +449,6 @@ Plat() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Polygon()
             edgeEl.WaitElementFromPath(PLATMapLinksPathE*).Invoke()
             edgeEl.WaitElementFromPath(NamePathE*).Invoke() ;name
         } catch {
@@ -459,10 +458,10 @@ Plat() {
 }
 
 Length() {
+    Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             chromeEl.WaitElementFromPath(LengthPathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
@@ -473,7 +472,6 @@ Length() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             edgeEl.WaitElementFromPath(LengthPathE*).Invoke()
             edgeEl.WaitElementFromPath(NamePathE*).Invoke() ;name
             edgeEl.WaitElementFromPath(AutosavePathE*).Invoke() ; autosave
@@ -485,15 +483,16 @@ Length() {
 }
 
 PUE() {
+    Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             chromeEl.WaitElementFromPath(PUEROWPathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
-            chromeEl.WaitElementFromPath(NamePathC*).Value := " PUE"
+            chromeEl.WaitElementFromPath(NamePathC*).Invoke()
             Sleep 100
+            Send "' PUE"
             Send "{Home}"
         } catch {
             ; Ignore if the path isn’t found
@@ -501,7 +500,6 @@ PUE() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             edgeEl.WaitElementFromPath(PUEROWPathE*).Invoke()
             edgeEl.WaitElementFromPath(NamePathE*).Invoke() ;name
             edgeEl.WaitElementFromPath(AutosavePathE*).Invoke() ; autosave
@@ -513,15 +511,16 @@ PUE() {
 }
 
 ROW() {
+    Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             chromeEl.WaitElementFromPath(PUEROWPathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
-            chromeEl.WaitElementFromPath(NamePathC*).Value := "ROW "
+            chromeEl.WaitElementFromPath(NamePathC*).Invoke()
             Sleep 100
+            Send "' ROW"
             Send "{Home}"
         } catch {
             ; Ignore if the path isn’t found
@@ -529,7 +528,6 @@ ROW() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             edgeEl.WaitElementFromPath(PUEROWPathE*).Invoke()
             edgeEl.WaitElementFromPath(NamePathE*).Invoke() ;name
             edgeEl.WaitElementFromPath(AutosavePathE*).Invoke() ; autosave
@@ -541,10 +539,11 @@ ROW() {
 }
 
 Centerline() {
+    Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
+
             chromeEl.WaitElementFromPath(ROWCenterlinePathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
@@ -555,7 +554,6 @@ Centerline() {
     } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
         edgeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            Line()
             edgeEl.WaitElementFromPath(ROWCenterlinePathE*).Invoke()
             edgeEl.WaitElementFromPath(NamePathE*).Invoke() ;name
             edgeEl.WaitElementFromPath(AutosavePathE*).Invoke() ; autosave
@@ -598,7 +596,6 @@ Centerline() {
     ;Planning Functions
 
 PDrops() {
-    ClosePanel()
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
@@ -623,7 +620,6 @@ PDrops() {
 }
 
 Vaults() {
-    ClosePanel()
     Point()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
@@ -646,7 +642,6 @@ Vaults() {
 }
 
 Conduit() {
-    ClosePanel()
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
@@ -671,7 +666,6 @@ Conduit() {
 }
 
 Fiber() {
-    ClosePanel()
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
@@ -702,7 +696,6 @@ Fiber() {
 }
 
 Drops() {
-    ClosePanel()
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
@@ -838,7 +831,6 @@ Drops() {
     FiberCountSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
 
     Naps() {
-        ClosePanel()
         Point()
         if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
             chromeEl := UIA.ElementFromHandle(WinExist("A"))
