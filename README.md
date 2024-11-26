@@ -9,7 +9,9 @@ Developed by dantheplannerman
 | Ctrl+S  | Save            |
 | Alt+X   | Delete          |
 | Esc     | Close Panel     |
+| Alt+Esc | Refresh Hotkeys |
 
+&nbsp;&nbsp; *If any hokey isn't working, try Alt+Esc
 ### Discovery Mode (Alt+F1)
 | Hotkey  | Action                  |
 |---------|-------------------------|
