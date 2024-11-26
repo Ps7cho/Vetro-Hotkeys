@@ -50,11 +50,19 @@ Developed by dantheplannerman
 &nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.
 
 ---------------------------------------------------------------------------
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<h3>Vetro Hotkeys *Deprecated</h3>
+
+<h3>Vetro Hotkeys (Deprecated)</h3>
 Developed by dantheplannerman
-
----------------------------------------------------------------------------
 
 | Hotkey        | Action                                      |
 |---------------|---------------------------------------------|
@@ -79,13 +87,8 @@ Developed by dantheplannerman
 
 &nbsp;&nbsp;&nbsp;*T3 must be selected before activating hotkey
 
----------------------------------------------------------------------------
 <br>Personalization:
 <br>If you would like to change the hotkeys, right click on the file, select "edit script", and find and replace.
 <br>For ctrl+ and alt+ functions, the find and replace is ^[key] and ![hotkey], respectively. To change alt+n, for example, find and replace would look for !n
-<br>
-<br>
-<br>
-<br>
 <br>
 <p>Disclaimer: Must have a resolution of 1920x1080, must be on Chrome or Edge--best functionality is on Chrome, must have bookmarks bar set to "always show"</p>
