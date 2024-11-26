@@ -42,7 +42,7 @@ Developed by dantheplannerman
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11         | 11 - Rose            |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12         | 12 - Aqua            |
 |||
-| **Alt+F2** |  **Data Entry Mode**       |
+| **Alt+F3** |  **Data Entry Mode**       |
 |||
 | Alt+n      |  NAPs                     |
 
