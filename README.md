@@ -1,13 +1,17 @@
 <h3>Vetro Workspace</h3>
 Developed by dantheplannerman
 
+---------------------------------------------------------------------------
+
 ### General Hotkeys
 | Hotkey  | Action          |
 |---------|-----------------|
 | Ctrl+S  | Save            |
 | Alt+X   | Delete          |
 | Esc     | Close Panel     |
+| Alt+Esc | Refresh Hotkeys |
 
+&nbsp;&nbsp; *If any hokey isn't working, do Alt+Esc then try again.
 ### Discovery Mode (Alt+F1)
 | Hotkey  | Action                  |
 |---------|-------------------------|
@@ -39,72 +43,28 @@ Developed by dantheplannerman
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-         | 11 - Rose            |
 |&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=         | 12 - Aqua            |
 
-### Allocation Mode (Alt+F3)
+### Data Entry Mode (Alt+F3)
 | Hotkey  | Action |
 |---------|--------|
 | Alt+N   | NAPs   |
 
 
----------------------------------------------------------------------------
-
-| **General Hotkeys** |                 |
-|----------------|----------------------|
-|||
-| ctrl+s         | Save                 |
-| alt+x          | Delete               |
-| Esc            | Close Panel          |
-
-
-| **Discovery Mode**     |  |
-|----------------|----------------------|
-| alt+F1 | Activate Discovery Mode |
-||
-| alt+m          | Messenger Wire       |
-| alt+u          | Units                |
-| alt+p          | Plat Map Link        |
-| alt+,          | PUE                  |
-| alt+.          | ROW                  |
-| alt+k          | ROW Centerline       |
-
-| **Allocation Mode**     | **Alt+F2**   |
-|----------------|----------------------|
-|||
-| alt+a          | Preliminary Drops    |
-| alt+v          | Vaults               |
-| alt+c          | Conduit              |
-| alt+f          | Fiber                |
-|||
-| alt+d          | Drops                |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1         | 1 - Blue             |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2         | 2 - Orange           |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3         | 3 - Green            |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4         | 4 - Brown            |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5         | 5 - Slate            |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6         | 6 - White            |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7         | 7 - Red              |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8         | 8 - Black            |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9         | 9 - Yellow           |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10         | 10 - Violet          |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11         | 11 - Rose            |
-|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12         | 12 - Aqua            |
-
-
-| **Allocation Mode**     | **Alt+F3**   |
-|----------------|----------------------|
-|||
-| Alt+n      |  NAPs                     |
-
-
-
-
 &nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.
 
 ---------------------------------------------------------------------------
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<h3>Vetro Hotkeys *Deprecated</h3>
+
+<h3>Vetro Hotkeys (Deprecated)</h3>
 Developed by dantheplannerman
-
----------------------------------------------------------------------------
 
 | Hotkey        | Action                                      |
 |---------------|---------------------------------------------|
@@ -129,13 +89,8 @@ Developed by dantheplannerman
 
 &nbsp;&nbsp;&nbsp;*T3 must be selected before activating hotkey
 
----------------------------------------------------------------------------
 <br>Personalization:
 <br>If you would like to change the hotkeys, right click on the file, select "edit script", and find and replace.
 <br>For ctrl+ and alt+ functions, the find and replace is ^[key] and ![hotkey], respectively. To change alt+n, for example, find and replace would look for !n
-<br>
-<br>
-<br>
-<br>
 <br>
 <p>Disclaimer: Must have a resolution of 1920x1080, must be on Chrome or Edge--best functionality is on Chrome, must have bookmarks bar set to "always show"</p>
