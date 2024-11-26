@@ -492,7 +492,9 @@ PUE() {
             chromeEl.WaitElementFromPath(PUEROWPathC*).Invoke()
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
-            chromeEl.WaitElementFromPath(NamePathC*).Value := "PUE "
+            chromeEl.WaitElementFromPath(NamePathC*).Value := " PUE"
+            Sleep 100
+            Send "{Home}"
         } catch {
             ; Ignore if the path isn’t found
         }
@@ -519,6 +521,8 @@ ROW() {
             chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
             chromeEl.WaitElementFromPath(NamePathC*).Value := "ROW "
+            Sleep 100
+            Send "{Home}"
         } catch {
             ; Ignore if the path isn’t found
         }
