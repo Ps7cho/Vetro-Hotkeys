@@ -1,7 +1,7 @@
 <h3>Vetro Workspace</h3>
 Developed by dantheplannerman
 <br>
-<br>&nbsp;&nbsp; *Ensure that uia.ahk is in the same folder as Vetro Workspace when launching
+<br>&nbsp;&nbsp; *Ensure that UIA.ahk is in the same folder as Vetro Workspace when launching
 
 ---------------------------------------------------------------------------
 
