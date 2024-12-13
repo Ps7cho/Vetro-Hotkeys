@@ -254,8 +254,6 @@ Polygon() {
 ; Mode-Based Hotkeys
 ;----------------------------------------------------------------------
 
-#Requires AutoHotkey v2.0
-
 global Mode := ""
 
 !F1:: {
@@ -273,32 +271,21 @@ global Mode := ""
 SetMode(newMode) {
     global Mode
     if (Mode != newMode) {
-        ; Switch to a new mode, skip the deactivation message
+        ; Switch to a new mode
         Mode := newMode
         ToolTip(Mode " Mode Activated")
         Sleep(1000) ; Briefly show activation message
         ToolTip("") ; Clear tooltip
-    } else {
-        ; Toggle off the same mode
-        ToolTip(Mode " Mode Deactivated")
-        Mode := ""
-        Sleep(1000) ; Briefly show deactivation message
-        ToolTip("")
     }
 }
 
-global SubMode :=""
+global SubMode := ""
 
 SetSubMode(newSubMode) {
     global SubMode
     if (SubMode != newSubMode) {
         SubMode := newSubMode
         ToolTip(SubMode " Submode Activated")
-        Sleep(1000)
-        ToolTip("")
-    } Else {
-        ToolTip(SubMode " Submode Deactivated")
-        Submode := ""
         Sleep(1000)
         ToolTip("")
     }
@@ -322,6 +309,7 @@ SetSubMode(newSubMode) {
     Drops()
     SetSubMode("Drops")
 }
+!n::Naps()
 
 #HotIf (SubMode = "Drops")
 1::Blue()
@@ -337,11 +325,11 @@ SetSubMode(newSubMode) {
 -::Rose()
 =::Aqua()
 
-
 #HotIf (Mode = "Data Entry")
 !n::Naps()
 
 #HotIf
+
 
 ;----------------------------------------------------------------------
 ; Discovery
