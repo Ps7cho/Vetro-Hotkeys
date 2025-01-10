@@ -11,9 +11,38 @@
 Esc:: ClosePanel()
 XButton1:: Save() ; alternate
 XButton2::Delete() ; alternate
-MButton:: ClosePanel() ; alternate
+MButton:: {
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        ClosePanel() ; Call your custom function
+    } else {
+        Send "{MButton}" ; Simulate the default middle mouse button action
+    }
+return
+}
 !q:: Unlock()
 !Esc:: Reload
+
+; Helper function to check if Chrome with VETRO is active
+
+
+;CheckAndExecute(functionName, keyAction) {
+;    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+;        %functionName%() ; Call the passed function
+;    } else {
+;        Send keyAction ; Send the key action with {} for special keys
+;    }
+;}
+;
+;!s:: CheckAndExecute("Save", "!s")
+;!x:: CheckAndExecute("Delete", "!x")
+;Esc:: CheckAndExecute("ClosePanel", "{Esc}")
+;XButton1:: CheckAndExecute("Save", "{XButton1}") ; alternate
+;XButton2:: CheckAndExecute("Delete", "{XButton2}") ; alternate
+;MButton:: CheckAndExecute("ClosePanel", "{MButton}") ; Middle button click
+
+;!q:: CheckAndExecute("Unlock", "!q")
+;!Esc:: CheckAndExecute("Reload", "!{Esc}")
+
 
 
 ;----------------------------------------------------------------------
@@ -37,8 +66,6 @@ UnlockPathE := [{T:33,CN:"BrowserRootView"}, {T:33}, {T:33}, {T:33,CN:"BrowserVi
 
 ;Basic Functions
 Save() {
-    ; Function to save in Chrome or Edge
-    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         if chromeEl {
             try {
@@ -49,28 +76,13 @@ Save() {
                 ; Ignore if the element path isn't found
             }
         }
-    } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        edgeEl := UIA.ElementFromHandle(WinExist("A"))
-        if edgeEl {
-            try {
-                saveButton := edgeEl.ElementFromPath(savePathE*)
-                if saveButton
-                    saveButton.Invoke()
-            } catch {
-                ; Ignore if the element path isn't found
-            }
-        }
-    }
-}
+    } 
 
 Delete() {
     ; Function to delete in Chrome or Edge
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
-        
-        ; Find the "Delete" button
         deleteButton := FindButtonByName(chromeEl, "Delete")
-        
         if deleteButton {
             try {
                 deleteButton.Invoke()
@@ -80,22 +92,7 @@ Delete() {
                 ; Ignore if the path isn’t found
             }
         }
-    } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        edgeEl := UIA.ElementFromHandle(WinExist("A"))
-        
-        ; Find the "Delete" button
-        deleteButton := FindButtonByName(edgeEl, "Delete")
-        
-        if deleteButton {
-            try {
-                deleteButton.Invoke()
-                ; Optional: Wait for confirmation or next action
-                edgeEl.WaitElementFromPath(featureDeletionPathE*).Invoke()
-            } catch {
-                ; Ignore if the path isn’t found
-            }
-        }
-    }
+    } 
 }
 
 ; Function to find a button by its Name
@@ -111,23 +108,18 @@ FindButtonByName(rootElement, partialName) {
 
 
 ClosePanel() {
+    global SubMode
+
     ; Function to close a panel in Chrome or Edge
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
             chromeEl.ElementFromPath(ClosePanelPathC*).Invoke()
         } catch {
-            ; Ignore if the path isn’t found
+            ; Log or ignore if the path isn’t found
+            ; OutputDebug "ClosePanelPathC not found"
         }
-    } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        edgeEl := UIA.ElementFromHandle(WinExist("A"))
-        try {
-            edgeEl.ElementFromPath(ClosePanelPathE*).Invoke()
-        } catch {
-            ; Ignore if the path isn’t found
-        }
-    }
-    global SubMode
+    } 
 
     ; Check if SubMode is not empty
     if (SubMode != "") {
@@ -135,6 +127,7 @@ ClosePanel() {
         SubMode := "" ; Reset SubMode
     }
 }
+
 
 Unlock() {
     ; Function to delete in Chrome or Edge
@@ -145,14 +138,7 @@ Unlock() {
         } catch {
             ; Ignore if the path isn’t found
         }
-    } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        edgeEl := UIA.ElementFromHandle(WinExist("A"))
-        try {
-            edgeEl.ElementFromPath(UnlockPathE*).Invoke()
-        } catch {
-            ; Ignore if the path isn’t found
-        }
-    }
+    } 
 }
 
 ;----------------------------------------------------------------------
