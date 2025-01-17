@@ -334,7 +334,7 @@ SetSubMode(newSubMode) {
     ;Chrome paths
     FeaturePanelPathC := [{T:30}, {T:26, i:-1}, {T:5}]
     LayerPathC := [{T:30}, {T:26, i:-1}, {T:3}]
-    AutosavePathC := [{T:30}, {T:26, i:-1}, {T:2}]
+    AutosavePathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:2}]
     MessengerPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Messenger Wire"}]
     UsingPathC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-using"}]
     UsingSelectPathC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-using"}, {T:8}, {T:7, N:"Using"}]
@@ -346,6 +346,7 @@ SetSubMode(newSubMode) {
     PUEROWPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"PUE & ROW"}]
     PLATMapLinksPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"PLAT Map Links"}]
     ROWCenterlinePathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"ROW Centerline"}]
+    IDPathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:4}]
 
     ;Edge Paths
     FeaturePanelPathE := [{T:33,CN:"BrowserRootView"}, {T:33}, {T:33}, {T:33,CN:"BrowserView"}, {T:33,CN:"SidebarContentsSplitView"}, {T:33}, {T:33}, {T:33}, {T:33}, {T:33}, {T:30}, {T:26}, {T:26}, {T:26,CN:"ant-layout-content css-14c5p6x"}, {T:5}, {T:20}]
@@ -563,17 +564,17 @@ Centerline() {
     ConduitTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}]
     ConduitTypeC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}, {T:8}, {T:7,N:"1 x 1.25`""}]
     DFiberPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Distribution Fiber"}]
-    DFiberCapBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-capacity"}]
-    DFiberCapC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"48"}]
-    DFiberPlaceBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}]
-    DFiberPlaceC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"48ct Underground"}]
-    DFiberSecBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-sections"}]
-    DFiberSecC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-sections"}, {T:8}, {T:7,N:"1 - Underground"}]
+    DFiberCapBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}]
+    DFiberCapC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"48"}]
+    DFiberPlaceBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}]
+    DFiberPlaceC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"48ct Underground"}]
+    DFiberSecBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-sections"}]
+    DFiberSecC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-sections"}, {T:8}, {T:7,N:"1 - Underground"}]
     DropPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Drop"}]
-    DropCapC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"1"}]
-    DropPlaceC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Underground"}]
-    DropColorBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}]
-    DropColorC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
+    DropCapC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"1"}]
+    DropPlaceC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Underground"}]
+    DropColorBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}]
+    DropColorC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
 
 ;----------------------------------------------------------------------
     ;Planning Functions
@@ -654,7 +655,7 @@ Fiber() {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
             chromeEl.WaitElementFromPath(DFiberPathC*).Invoke()
-            chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
@@ -684,7 +685,7 @@ Drops() {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
             chromeEl.WaitElementFromPath(DropPathC*).Invoke()
-            chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:26}, {T:4}).Invoke() ;name
             chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DropCapC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
@@ -708,20 +709,20 @@ Drops() {
     }
 }
 
-    DropColorPath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}]
-    bluepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
-    orangepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"2 - Orange"}]
-    greenpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"3 - Green"}]
-    brownpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"4 - Brown"}]
-    slatepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"5 - Slate"}]
-    whitepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"6 - White"}]
-    redpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"7 - Red"}]
-    blackpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"8 - Black"}]
-    yellowpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"9 - Yellow"}]
-    violetpath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"10 - Violet"}]
-    rosepath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"11 - Rose"}]
-    aquapath := [{T:30}, {T:26, i:-1}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"12 - Aqua"}]
-    NotePathC := [{T:30}, {T:26, i:-1}, {T:4,A:"input-note"}]
+    DropColorPath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}]
+    bluepath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
+    orangepath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"2 - Orange"}]
+    greenpath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"3 - Green"}]
+    brownpath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"4 - Brown"}]
+    slatepath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"5 - Slate"}]
+    whitepath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"6 - White"}]
+    redpath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"7 - Red"}]
+    blackpath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"8 - Black"}]
+    yellowpath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"9 - Yellow"}]
+    violetpath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"10 - Violet"}]
+    rosepath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"11 - Rose"}]
+    aquapath := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"12 - Aqua"}]
+    NotePathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:4,A:"input-note"}]
 
     SetDropColor(expectedValue, pathToSelectColor, NotePathC) {
         if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -805,13 +806,13 @@ Drops() {
 ;----------------------------------------------------------------------
     ;Data Entry Hotkeys
 
-    NapPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"NAP"}]
-    TypePathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}]
-    TypeSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}, {T:8}, {T:7,N:"UG NAP"}]
-    LocationPathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}]
-    LocationSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
-    FiberCountPathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}]
-    FiberCountSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
+    NapPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"NAP"}] 
+    TypePathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}]
+    TypeSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}, {T:8}, {T:7,N:"UG NAP"}]
+    LocationPathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-nap-location"}]
+    LocationSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
+    FiberCountPathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-count"}]
+    FiberCountSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
 
     Naps() {
         Point()
@@ -819,7 +820,7 @@ Drops() {
             chromeEl := UIA.ElementFromHandle(WinExist("A"))
             try {
                 chromeEl.WaitElementFromPath(NapPathC*).Invoke()
-                chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke() ;name
                 chromeEl.WaitElementFromPath(TypePathC*).Invoke()
                 chromeEl.WaitElementFromPath(TypeSelectC*).Invoke()
                 chromeEl.WaitElementFromPath(LocationPathC*).Invoke()
@@ -827,7 +828,7 @@ Drops() {
                 chromeEl.WaitElementFromPath(FiberCountPathC*).Invoke()
                 chromeEl.WaitElementFromPath(FiberCountSelectC*).Invoke()
                 chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
-                chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
 
             } catch {
                 ; Ignore if the path isn’t found
@@ -843,20 +844,20 @@ Drops() {
         }
     }
 
-    NapTypePathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}]
-    NapTypePathUGSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"UG NAP"}]
-    NapTypePathAESelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"AE Regular"}]
-    NapTypePathUGTieSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"UG Tie Point"}]
-    NapTypePathAETieSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"AE Tie Point"}]
+    NapTypePathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}]
+    NapTypePathUGSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"UG NAP"}]
+    NapTypePathAESelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"AE Regular"}]
+    NapTypePathUGTieSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"UG Tie Point"}]
+    NapTypePathAETieSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-type"}, {T:8}, {T:7, n:"AE Tie Point"}]
 
-    NapLocationPathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}]
-    NapLocationPathUGSelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
-    NapLocationPathAESelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Aerial"}]
+    NapLocationPathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-nap-location"}]
+    NapLocationPathUGSelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
+    NapLocationPathAESelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Aerial"}]
 
-    NapFiberPathC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}]
-    NapFiberPath24SelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"24ct"}]
-    NapFiberPath48SelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
-    NapFiberPath72SelectC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"72ct"}]
+    NapFiberPathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-count"}]
+    NapFiberPath24SelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"24ct"}]
+    NapFiberPath48SelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
+    NapFiberPath72SelectC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"72ct"}]
 
     SetNapLocation() {
         if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -869,14 +870,14 @@ Drops() {
                     chromeEl.WaitElementFromPath(NapTypePathAESelectC*).Invoke()
                     chromeEl.WaitElementFromPath(NapLocationPathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapLocationPathAESelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
                 else if (currentValue = "Aerial") {
                     chromeEl.ElementFromPath(NapTypePathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapTypePathUGSelectC*).Invoke()
                     chromeEl.WaitElementFromPath(NapLocationPathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapLocationPathUGSelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
 
             } catch {
@@ -907,22 +908,22 @@ Drops() {
                 if (currentValue = "UG NAP") {
                     chromeEl.ElementFromPath(NapTypePathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapTypePathUGTieSelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
                 else if (currentValue = "AE Regular") {
                     chromeEl.ElementFromPath(NapTypePathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapTypePathAETieSelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
                 else if (currentValue = "UG Tie Point") {
                     chromeEl.ElementFromPath(NapTypePathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapTypePathUGSelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
                 else if (currentValue = "AE Tie Point") {
                     chromeEl.ElementFromPath(NapTypePathC*).Invoke()
                     chromeEl.WaitElementFromPath(NapTypePathAESelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
 
             } catch {
@@ -935,7 +936,7 @@ Drops() {
                 currentValue := NapTypeElement.Value
                 if (currentValue != "Aerial") {
                     NapTypeElement.Invoke()
-                    edgeEl.WaitElementFromPath(NamePathC*).Invoke()
+                    edgeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
                 edgeEl.WaitElementFromPath(NotePathC*).Invoke()
             } catch {
@@ -954,7 +955,7 @@ Drops() {
                     NapFiberElement.Invoke()
                     chromeEl.WaitElementFromPath(pathToSelectFiber*).Invoke()
                 }
-                chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             } catch {
                 ; Handle errors gracefully
             }
@@ -967,7 +968,7 @@ Drops() {
                     NapFiberElement.Invoke()
                     edgeEl.WaitElementFromPath(pathToSelectFiber*).Invoke()
                 }
-                edgeEl.WaitElementFromPath(NamePathC*).Invoke()
+                edgeEl.WaitElementFromPath(IDPathC*).Invoke()
             } catch {
                 ; Handle errors gracefully
             }
