@@ -49,6 +49,7 @@ Developed by dantheplannerman
 | Hotkey  | Action |
 |---------|--------|
 | Alt+N   | NAPs   |
+| Alt+W   | Slack Loops |
 
 
 &nbsp;&nbsp;&nbsp; *Save, Delete, and Close Panel hotkeys are bound to both mouse keys and keyboard keys.

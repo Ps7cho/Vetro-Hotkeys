@@ -130,7 +130,6 @@ ClosePanel() {
 
 
 Unlock() {
-    ; Function to delete in Chrome or Edge
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
@@ -299,6 +298,14 @@ SetSubMode(newSubMode) {
     Naps()
     SetSubMode("Naps")
 }
+!w:: {
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        SlackLoops() ; Call your custom function
+    } else {
+        Send "!w" ; Simulate the default middle mouse button action
+    }
+return
+}
 
     #HotIf (SubMode = "Drops")
     1::Blue()
@@ -323,6 +330,7 @@ SetSubMode(newSubMode) {
 
 #HotIf (Mode = "Data Entry")
 !n::Naps()
+!w:: SlackLoops()
 
 #HotIf
 
@@ -334,7 +342,7 @@ SetSubMode(newSubMode) {
     ;Chrome paths
     FeaturePanelPathC := [{T:30}, {T:26, i:-1}, {T:5}]
     LayerPathC := [{T:30}, {T:26, i:-1}, {T:3}]
-    AutosavePathC := [{T:30}, {T:26, i:-1}, {T:26}, {T:2}]
+    AutosavePathC := [{T:30}, {T:26, i:-1}, {T:2}] 
     MessengerPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Messenger Wire"}]
     UsingPathC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-using"}]
     UsingSelectPathC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-using"}, {T:8}, {T:7, N:"Using"}]
@@ -472,9 +480,9 @@ PUE() {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
             chromeEl.WaitElementFromPath(PUEROWPathC*).Invoke()
-            chromeEl.WaitElementFromPath(NamePathC*).Invoke() ;name
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:4}).Invoke() ;name
             chromeEl.WaitElementFromPath(AutosavePathC*).Invoke() ; autosave
-            chromeEl.WaitElementFromPath(NamePathC*).Invoke()
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:4}).Invoke()
             Sleep 100
             Send "' PUE"
             Send "{Home}"
@@ -576,6 +584,8 @@ Centerline() {
     DropColorBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}]
     DropColorC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
 
+    AutosavePathNetworkC := [{T:30}, {T:26, i:-1}, {T:26}, {T:2}]
+
 ;----------------------------------------------------------------------
     ;Planning Functions
 
@@ -662,7 +672,7 @@ Fiber() {
             chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberSecC*).Invoke()
-            chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
             Sleep 100
             Send("{PgUp 4}")
         } catch {
@@ -692,7 +702,7 @@ Drops() {
             chromeEl.WaitElementFromPath(DropPlaceC*).Invoke()
             chromeEl.WaitElementFromPath(DropColorBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DropColorC*).Invoke()
-            chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
             Sleep 100
             Send("{PgUp 4}")
         } catch {
@@ -827,7 +837,7 @@ Drops() {
                 chromeEl.WaitElementFromPath(LocationSelectC*).Invoke()
                 chromeEl.WaitElementFromPath(FiberCountPathC*).Invoke()
                 chromeEl.WaitElementFromPath(FiberCountSelectC*).Invoke()
-                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
                 chromeEl.WaitElementFromPath(IDPathC*).Invoke()
 
             } catch {
@@ -987,3 +997,26 @@ Drops() {
         SetNapFiber("72ct", NapFiberPath72SelectC)
     }
 
+
+SlackLoops() {
+    Point()
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Slack Loop"}).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke() ;Collapse
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-slack-loop"}).Invoke()
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-slack-loop"}, {T:8}, {T:7, N:"30' Loop"}).Invoke()
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:26}, {T:4}).Invoke() ;Collapse
+            sleep 100
+            Send "30"
+            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke() ;Collapse
+            Sleep 100
+            Send("{PgUp}")
+
+
+        } catch {
+            ; Ignore if the path isn’t found
+        }
+    } 
+}
