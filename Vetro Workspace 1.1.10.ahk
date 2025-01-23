@@ -284,6 +284,7 @@ SetSubMode(newSubMode) {
 !,:: PUE()
 !.:: ROW()
 !k:: Centerline()
+!;:: ServiceLocations()
 
 #HotIf (Mode = "Planning")
 !a::PDrops()
@@ -555,6 +556,32 @@ Centerline() {
         }
     }
 }
+
+!e::ServiceLocations()
+
+ServiceLocations() {
+    Sleep 100
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            Point()
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Service Location"}).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            chromeEl.WaitElementFromPath(AutoSavePathNetworkC*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+        } catch {
+            ; Ignore if the path isn’t found
+        }
+    } else if WinActive("ahk_exe msedge.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        edgeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+
+        } catch {
+            ; Ignore if the path isn’t found
+        }
+    }
+}
+
 
 
 ;----------------------------------------------------------------------

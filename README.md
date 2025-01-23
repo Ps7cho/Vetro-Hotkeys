@@ -23,6 +23,8 @@ Developed by dantheplannerman
 | Alt+,   | PUE                     |
 | Alt+.   | ROW                     |
 | Alt+K   | ROW Centerline          |
+| Alt+L   | Length                  |
+| Alt+;   | Service Location        |
 
 ### Allocation Mode (Alt+F2)
 | Hotkey  | Action                 |
