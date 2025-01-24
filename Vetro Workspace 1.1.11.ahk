@@ -598,14 +598,12 @@ ServiceLocations() {
     ConduitPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Conduit"}]
     ConduitTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}]
     ConduitTypeC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}, {T:8}, {T:7,N:"1 x 1.25`""}]
-    DFiberPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Distribution Fiber"}]
     DFiberCapBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}]
-    DFiberCapC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"48"}]
+    DFiberCapC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"24"}]
     DFiberPlaceBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}]
-    DFiberPlaceC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"48ct Underground"}]
+    DFiberPlaceC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"24ct Underground"}]
     DFiberSecBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-sections"}]
     DFiberSecC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-sections"}, {T:8}, {T:7,N:"1 - Underground"}]
-    DropPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Drop"}]
     DropCapC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-fiber-capacity"}, {T:8}, {T:7,N:"1"}]
     DropPlaceC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Underground"}]
     DropColorBoxC := [{T:30}, {T:26, i:-1}, {T:26}, {T:3,A:"input-color"}]
@@ -686,12 +684,20 @@ Conduit() {
     }
 }
 
+
+
+;chromeEl := UIA.ElementFromHandle("VETRO - Google Chrome ahk_exe chrome.exe")
+;chromeEl.ElementFromPath({T:30}, {T:26, i:-1}, {T:3}).Click()
+;chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Fiber - Distribution | Underground"}).Click()
+;chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:26}, {T:4}).Click()
+
+
 Fiber() {
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            chromeEl.WaitElementFromPath(DFiberPathC*).Invoke()
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Fiber - Distribution | Underground"}).Invoke()
             chromeEl.WaitElementFromPath(IDPathC*).Invoke() ;name
             chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
@@ -700,8 +706,7 @@ Fiber() {
             chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberSecC*).Invoke()
             chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
-            Sleep 100
-            Send("{PgUp 4}")
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
         } catch {
             ; Ignore if the path isn’t found
         }
@@ -721,7 +726,7 @@ Drops() {
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            chromeEl.WaitElementFromPath(DropPathC*).Invoke()
+            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Fiber - Drop"}).Invoke()
             chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:26}, {T:4}).Invoke() ;name
             chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DropCapC*).Invoke()
