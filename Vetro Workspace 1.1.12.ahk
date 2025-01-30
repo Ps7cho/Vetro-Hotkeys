@@ -53,7 +53,7 @@ return
 savePathC := [{T:30}, {T:26, i:-1}, {T:0, N:"Save"}]
 deletePathC := [{T:30}, {T:26, i:-1}, {T:0,N:"Delete"}]
 featureDeletionPathC := [{T:30}, {T:26, i:-1}, {T:25, A:"feature-deletion-modal"}, {T:26, A:"feature-deletion-modal___BV_modal_content_"}, {T:0, i:-1}]
-ClosePanelPathC := [{T:30}, {T:26, i:-1}, {T:6}]
+ClosePanelPathC := [{T:30}, {T:26, i:-1}, {T:0}] 
 UnlockPathC := [{T:30}, {T:26, i:-1}, {T:21, i:-1}, {T:0}]
 
 ;Edge Variables
