@@ -8,7 +8,7 @@ Developed by dantheplannerman
 ### General Hotkeys
 | Hotkey  | Action          |
 |---------|-----------------|
-| Ctrl+S  | Save            |
+| Alt+S  | Save            |
 | Alt+X   | Delete          |
 | Esc     | Close Panel     |
 | Alt+Esc | Refresh Hotkeys |
