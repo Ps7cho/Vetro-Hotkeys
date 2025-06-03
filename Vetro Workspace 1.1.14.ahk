@@ -136,28 +136,43 @@ PointPathC := [{T:30}, {T:26, i:-1}, {T:21}, {T:0,N:" Point"}]
 LinePathC := [{T:30}, {T:26, i:-1}, {T:21}, {T:0,N:" Line"}]
 PolygonPathC := [{T:30}, {T:26, i:-1}, {T:21}, {T:0,N:" Polygon"}]
 
+MapDataPathC := [{T:30}, {T:26, i:-1}, {T:21, i:2}, {T:0}, {T:6}]
+NetworkCheckPathC := [{T:30}, {T:26, i:-1}, {T:8}, {T:7, i:2}, {T:2}]
+; Returns a copy of the checkboxPathC array with the {T:7, i:...} value replaced by newIndex
+GetCheckboxPathC(newIndex) {
+    path := [{T:30}, {T:26, i:-1}, {T:8}, {T:7, i:newIndex}, {T:2}]
+    return path
+}
+
 ShowHelp() {
     global Mode, SubMode
     helpText := "VETRO Hotkeys`n-------------------`n"
+    helpText .= "Reset: ALT+ESC`n"
     if (Mode = "Discovery") {
         helpText .= "Messenger: ALT+M`nUnits: ALT+U`nPlat: ALT+P`nLength: ALT+L`nPUE: ALT+,`nROW: ALT+.`nCenterline: ALT+K`nService Locations: ALT+;"
     } else if (Mode = "Planning") {
-        helpText .= "PDrops: ALT+A`nVaults: ALT+V`nConduit: ALT+C`nFiber: ALT+F`nDrops: ALT+D`nNaps: ALT+N`nSlack Loops: ALT+W"
+        helpText .= "PDrops: ALT+Q`nAerial Fiber: ALT+A`nVaults: ALT+V`nConduit: ALT+C`nFiber: ALT+F`nDrops: ALT+D`nNaps: ALT+N`nSlack Loops: ALT+W`nBackhaul U: ALT+B`nBackhaul A: ALT+H"
         if (SubMode = "Preliminary Drops") {
-            helpText .= "`n--- Preliminary Drops Submode ---`nA - Switch Type (Underground/Aerial)"
-        } else if (SubMode = "Drops") {
-            helpText .= "`n--- Drops Submode ---`n1-Blue, 2-Orange, 3-Green, 4-Brown, 5-Slate, 6-White, 7-Red, 8-Black, 9-Yellow, 0-Violet, -Rose, =Aqua"
-        } else if (SubMode = "Naps") {
-            helpText .= "`n--- Naps Submode ---`nSPACE-Type, A-Location, W-24CT, E-48CT, R-72CT"
+            helpText .= "`n--- Preliminary Drops Submode ---`nA - Switch Type (Underground/Aerial)`nReset: ALT+ESC"
+        } else if (SubMode = "Aerial Fiber") {
+            helpText .= "`n--- Aerial Fiber Submode ---`nA - Toggle Placement`nQ - (not used)`nW - 24CT`nE - 48CT`nR - 72CT`n1-4 - Section`nReset: ALT+ESC"
         } else if (SubMode = "Vaults") {
-            helpText .= "`n--- Vaults Submode ---`nV - Switch Vault"
+            helpText .= "`n--- Vaults Submode ---`nV - Switch Vault`nReset: ALT+ESC"
+        } else if (SubMode = "Conduit") {
+            helpText .= "`n--- Conduit Submode ---`nA - (not used)`nQ - (not used)`nW - 1x25`nE - 2x25`nR - 2x25 Road`nReset: ALT+ESC"
+        } else if (SubMode = "Fiber") {
+            helpText .= "`n--- Fiber Submode ---`nA - Toggle Placement`nQ - (not used)`nW - 24CT`nE - 48CT`nR - 72CT`n1-4 - Section`nReset: ALT+ESC"
+        } else if (SubMode = "Drops") {
+            helpText .= "`n--- Drops Submode ---`n1 - Blue`n2 - Orange`n3 - Green`n4 - Brown`n5 - Slate`n6 - White`n7 - Red`n8 - Black`n9 - Yellow`n0 - Violet`n- - Rose`n= - Aqua`nReset: ALT+ESC"
+        } else if (SubMode = "Naps") {
+            helpText .= "`n--- Naps Submode ---`nA - Location`nQ - (not used)`nW - 24CT`nE - 48CT`nR - 72CT`n1-4 - (not used)`nSPACE - Type`nReset: ALT+ESC"
         } else if (SubMode = "Slack Loops") {
-            helpText .= "`n--- Slack Loops Submode ---`nA-Placement, W-Loop, E-Tail, R-60/24, Q-70 Tail, 1-4 Fiber Section"
+            helpText .= "`n--- Slack Loops Submode ---`nA - Placement`nQ - 70 Tail`nW - Loop`nE - Tail`nR - 60/24`n1-4 - Fiber Section`nReset: ALT+ESC"
+        } else if (SubMode = "Backhaul Fiber U") {
+            helpText .= "`n--- Backhaul Fiber U Submode ---`nA - Toggle Placement`nQ - (not used)`nW - 24CT`nE - 48CT`nR - 72CT`nReset: ALT+ESC"
         }
-    } else if (Mode = "Data Entry") {
-        helpText .= "Naps: ALT+N`nSlack Loops: ALT+W"
     } else {
-        helpText .= "No mode active.`nALT+F1: Discovery Mode`nALT+F2: Planning Mode`nALT+F3: Data Entry Mode"
+        helpText .= "No mode active.`nALT+F1: Discovery Mode`nALT+F2: Planning Mode`nReset: ALT+ESC"
     }
     MsgBox(helpText, "VETRO Hotkey Help")
 }
@@ -209,14 +224,66 @@ Polygon() {
         }
     }
 }
-    
 
+MapDataBox() {
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+    
+        chromeEl.WaitElementFromPath(MapDataPathC*).Invoke()
+    }
+}
+
+ToggleLayerCheckbox(index) {
+    path := GetCheckboxPathC(index)
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            checkboxEl := chromeEl.ElementFromPath(path*)
+            if checkboxEl
+                checkboxEl.Toggle()
+        } catch {
+            ; Ignore if the element is not found or not toggleable
+        }
+    }
+}
+
+CheckLayerCheckbox(index) {
+    path := GetCheckboxPathC(index)
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            checkboxEl := chromeEl.ElementFromPath(path*)
+            if checkboxEl {
+                return checkboxEl.ToggleState ; 0 = Off, 1 = On, 2 = Indeterminate
+            }
+        } catch {
+            ; Ignore if the element is not found or not toggleable
+        }
+    }
+    return -1 ; Return -1 if not found or not active
+}
+
+TurnOffAllLayerCheckboxes() {
+    ; Turn off all layer checkboxes using CheckLayerCheckbox
+    maxIndex := 100
+    Loop maxIndex + 1 {
+        idx := A_Index - 1
+        state := CheckLayerCheckbox(idx)
+        
+        if (state = 1) {
+            ToggleLayerCheckbox(idx)
+
+        }
+        Sleep 100
+        Send("{PgDn}")
+    }
+}
     
 ; #endregion----------------------------------------------------------------------
 ; #region Mode-Based Hotkeys
 ;----------------------------------------------------------------------
 
-global Mode := "", SubMode := "", storedMode := "", storedSubMode := ""
+global Mode := "", SubMode := "", storedMode := "", storedSubMode := "", lastHotkey := ""
 
 !F1:: {
     SetMode("Discovery")
@@ -227,8 +294,10 @@ global Mode := "", SubMode := "", storedMode := "", storedSubMode := ""
 }
 
 !F3:: {
-    SetMode("Data Entry")
+    MapDataBox()
+    SetMode("Layers")
 }
+
 
 SetMode(newMode) {
     global Mode
@@ -251,52 +320,58 @@ SetSubMode(newSubMode) {
     }
 }
 
-StoreSubmode() {
-    ; switch to no submode and store the current submode and reactivate it late
-    global SubMode, Mode, storedSubMode, storedMode
-    storedSubMode := SubMode
-    storedMode := Mode
-    SetSubMode("Wait") ; temporary set SubMode
-    SetTimer(CheckWaitMode, 1000) ; Check every second
-}
 
-CheckWaitMode() {
-    global storedSubMode, storedMode
-    if SubMode = "Wait"{
-        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
-            SetSubMode(storedSubMode) ; Reactivate the stored SubMode
-            SetTimer(CheckWaitMode, 0) ; Stop the timer
-        }else{
-            SetTimer(CheckWaitMode, 1000)
-        }
+
+HandleHotkey(hotkey, actionFunc) {
+    global lastHotkey
+    lastHotkey := hotkey
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        %actionFunc%()
+    } else {
+        SendInput("{" hotkey "}")
     }
 }
 
+#HotIf (Mode = "Layers")
+!m:: HandleHotkey("m", "MapDataBox")
+!p:: {
+    TurnOffAllLayerCheckboxes()
+}
 
 #HotIf (Mode = "Discovery")
-!m:: Messenger()
-!u:: Units()
-!p:: Plat()
-!l:: Length()
-!,:: PUE()
-!.:: ROW()
-!k:: Centerline()
-!;:: ServiceLocations()
+!m:: HandleHotkey("m", "Messenger")
+!u:: HandleHotkey("u", "Units")
+!p:: HandleHotkey("p", "Plat")
+!l:: HandleHotkey("l", "Length")
+!,:: HandleHotkey(",", "PUE")
+!.:: HandleHotkey(".", "ROW")
+!k:: HandleHotkey("k", "Centerline")
+!;:: HandleHotkey(";", "ServiceLocations")
 
 #HotIf (SubMode = "Preliminary Drops")
-a:: SwitchPrelimDropType()
+a:: HandleHotkey("a", "SwitchPrelimDropType")
 
 #HotIf (Mode = "Planning")
-!a:: {
+!q:: {
     PDrops()
     SetSubMode("Preliminary Drops")
+}
+!a:: {
+    AerialFiber()
+    SetSubMode("Aerial Fiber")
 }
 !v:: {
     Vaults()
     SetSubMode("Vaults")
 }
-!c::Conduit()
-!f::Fiber()
+!c::{
+    Conduit()
+    SetSubMode("Conduit")
+}
+!f:: {
+    Fiber()
+    SetSubMode("Fiber")
+}
 !d:: {
     Drops()
     SetSubMode("Drops")
@@ -309,48 +384,92 @@ a:: SwitchPrelimDropType()
     SlackLoops()
     SetSubMode("Slack Loops")
 }
+!b:: {
+    BackhaulU()
+    SetSubMode("Backhaul Fiber U")
+}
+!h:: {
+    BackhaulA()
+    SetSubMode("Backhaul Fiber U")
+}
 
     #HotIf (SubMode = "Drops")
-    1::Blue()
-    2::Orange()
-    3::Green()
-    4::Brown()
-    5::Slate()
-    6::White()
-    7::Red()
-    8::Black()
-    9::Yellow()
-    0::Violet()
-    -::Rose()
-    =::Aqua()
+    1::HandleHotkey("1", "Blue")
+    2::HandleHotkey("2", "Orange")
+    3::HandleHotkey("3", "Green")
+    4::HandleHotkey("4", "Brown")
+    5::HandleHotkey("5", "Slate")
+    6::HandleHotkey("6", "White")
+    7::HandleHotkey("7", "Red")
+    8::HandleHotkey("8", "Black")
+    9::HandleHotkey("9", "Yellow")
+    0::HandleHotkey("0", "Violet")
+    -::HandleHotkey("-", "Rose")
+    =::HandleHotkey("=", "Aqua")
 
     #HotIf (SubMode = "Naps")
-    Space::SetNapType()
-    a::SetNapLocation()
-    w::TwentyFour()
-    e::FourtyEight()
-    r::SeventyTwo()
-
-#HotIf (Mode = "Data Entry")
-!n::Naps()
-!w:: SlackLoops()
+    Space::HandleHotkey("Space", "SetNapType")
+    a::HandleHotkey("a", "SetNapLocation")
+    w::HandleHotkey("w", "TwentyFour")
+    e::HandleHotkey("e", "FourtyEight")
+    r::HandleHotkey("r", "SeventyTwo")
 
 #HotIf (SubMode = "Vaults")
-v::SwitchVault()
+v::HandleHotkey("v", "SwitchVault")
 
 #HotIf (SubMode = "Slack Loops")
-a:: SlackLoopLocation()
-w:: ThirtyLoop()
-e:: ThirtyTail()
-r:: SixtyLoop()
-q:: Set70Tail()
+a:: HandleHotkey("a", "SlackLoopLocation")
+w:: HandleHotkey("w", "ThirtyLoop")
+e:: HandleHotkey("e", "ThirtyTail")
+r:: HandleHotkey("r", "SixtyLoop")
+q:: HandleHotkey("q", "Set70Tail")
 
+1:: SetLoopSection(1)
+2:: SetLoopSection(2)
+3:: SetLoopSection(3)
+4:: SetLoopSection(4)
+
+#HotIf (SubMode = "Fiber")
+a:: HandleHotkey("a", "ToggleFiberPlacement")
+w:: SetFiberCapacity("24")
+e:: SetFiberCapacity("48")
+r:: SetFiberCapacity("72")
 1:: SetFiberSection(1)
 2:: SetFiberSection(2)
 3:: SetFiberSection(3)
 4:: SetFiberSection(4)
+
+#HotIf (SubMode = "Aerial Fiber")
+a:: HandleHotkey("a", "ToggleAerialFiberPlacement")
+w:: SetAerialFiberCapacity("24")
+e:: SetAerialFiberCapacity("48")
+r:: SetAerialFiberCapacity("72")
+1:: SetAerialFiberSection(1)
+2:: SetAerialFiberSection(2)
+3:: SetAerialFiberSection(3)
+4:: SetAerialFiberSection(4)
+
+#HotIf (SubMode = "Conduit")
+w:: HandleHotkey("w", "Conduit1x25")
+e:: HandleHotkey("e", "Conduit2x25")
+r:: HandleHotkey("r", "Conduit2x25Road")
+
+#HotIf (SubMode = "Backhaul Fiber U")
+a:: HandleHotkey("a", "ToggleBackhaulPlacement")
+w:: HandleHotkey("w", "SetBackhaulCapacity24")
+e:: HandleHotkey("e", "SetBackhaulCapacity48")
+r:: HandleHotkey("r", "SetBackhaulCapacity72")
+
+SetBackhaulCapacity24() {
+    SetBackhaulCapacity("24")
+}
+SetBackhaulCapacity48() {
+    SetBackhaulCapacity("48")
+}
+SetBackhaulCapacity72() {
+    SetBackhaulCapacity("72")
+}
 #HotIf
-    
 
 ; #endregion----------------------------------------------------------------------
 ; #region Discovery
@@ -517,32 +636,42 @@ ServiceLocations() {
     PDropSaveC := [{T:30}, {T:26, i:-1}, {T:2}]
     PDropTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-type"}]
     PDropTypeC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-type"}, {T:8}, {T:7, N:"Underground"}]
+
     VaultPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Vaults"}]
     VaultTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-size"}]
     VaultTypeC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-size"}, {T:8}, {T:7, N:"DV"}]
     VaultTypeB := [{T:30}, {T:26, i:-1}, {T:3, A:"input-size"}, {T:8}, {T:7, N:"LDV"}]
+
     ConduitPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Conduit"}]
     ConduitTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}]
     ConduitTypeC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}, {T:8}, {T:7, N:"1 x 1.25`""}]
+
     DFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Distribution | Underground"}]
+    AFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Distribution | Aerial"}]
     DFiberCapBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}]
     DFiberCapC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:"24"}]
     DFiberPlaceBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}]
     DFiberPlaceC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}, {T:8}, {T:7, N:"24ct Underground"}]
     DFiberSecBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-sections"}]
     DFiberSecC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:"1 - Underground"}]
+    AFiberSecC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:"1"}]
+
     DropFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Drop"}]
-    DropCapC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:"1"}]
+    DropCapC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:"72"}]
     DropPlaceC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}, {T:8}, {T:7, N:"Underground"}]
     DropColorBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-color"}]
     DropColorC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-color"}, {T:8}, {T:7, N:"1 - Blue"}]
+
     IDPathC := [{T:30}, {T:26, i:-1}, {T:4}]
+
+    BackhaulUFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Backhaul | Underground"}]
+    BackhaulAFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Backhaul | Aerial"}]
 
     AutosavePathNetworkC := [{T:30}, {T:26, i:-1},  {T:2}]
 
 ; ----------------------------------------------------------------------
     ;Planning Functions
-
+; #region Preliminary Drops
 PDrops() {
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -575,11 +704,10 @@ PDrops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
-
+ ;#endregion Preliminary Drops
+; #region Vaults
 Vaults() {
     Point()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -615,11 +743,10 @@ Vaults() {
             } catch {
                 
             }
-        } else {
-            StoreSubmode()
         }
     }
-
+; #endregion Vaults
+; #region Conduit
 Conduit() {
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -635,6 +762,59 @@ Conduit() {
         }
     }
 } 
+
+    Conduit1x25() {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                conduitTypeElement := chromeEl.ElementFromPath(ConduitTypeBoxC*)
+                currentValue := conduitTypeElement.Value
+                if (currentValue != '1 x 1.25"') {
+                    chromeEl.WaitElementFromPath(ConduitTypeBoxC*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-conduit-type"}, {T:8}, {T:7, N:"1 x 1.25`""}]*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch {
+                ; Handle errors gracefully
+            }
+        }
+    }
+
+    Conduit2x25() {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                conduitTypeElement := chromeEl.ElementFromPath(ConduitTypeBoxC*)
+                currentValue := conduitTypeElement.Value
+                if (currentValue != '2 x 1.25"') {
+                    chromeEl.WaitElementFromPath(ConduitTypeBoxC*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-conduit-type"}, {T:8}, {T:7, N:"2 x 1.25`""}]*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch {
+                ; Handle errors gracefully
+            }
+        }
+    }
+
+    Conduit2x25Road() {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                conduitTypeElement := chromeEl.ElementFromPath(ConduitTypeBoxC*)
+                currentValue := conduitTypeElement.Value
+                if (currentValue != '2 x 1.25" Road Shot') {
+                    chromeEl.WaitElementFromPath(ConduitTypeBoxC*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-conduit-type"}, {T:8}, {T:7, N:'2 x 1.25" Road Shot'}]*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch {
+                ; Handle errors gracefully
+            }
+        }
+    }
+; #endregion Conduit
+; #region Fiber
 
 Fiber() {
     Line()
@@ -656,7 +836,331 @@ Fiber() {
         }
     }
 }
+    ToggleFiberPlacement() {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                ; Get current placement value
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                ; Parse current capacity and placement
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    cap := m[1]
+                    place := m[2]
+                    newPlace := (place = "Underground") ? "Aerial" : "Underground"
+                    newValue := cap "ct " newPlace
+                    chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                    ; Get current section number
+                    fiberSecElement := chromeEl.ElementFromPath(DFiberSecBoxC*)
+                    sectionValue := fiberSecElement.Value
+                    sectionMatch := RegExMatch(sectionValue, "(\d+)", &sm)
+                    if sectionMatch {
+                        sectionNum := sm[1]
+                        sectionLabel := sectionNum " - " newPlace
+                        chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
+                    }
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in ToggleFiberPlacement: " e.Message)
+            }
+        }
+    }
 
+    SetFiberCapacity(capacity) {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    place := m[2]
+                    newValue := capacity "ct " place
+                    if (currentValue != newValue) {
+                        chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                    }
+                    fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
+                    currentCap := fiberCapElement.Value
+                    if (currentCap != capacity) {
+                        fiberCapElement.Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                    }
+                } else {
+                    ; If not matched, try toggling placement and retry
+                    ToggleFiberPlacement()
+                    Sleep 100
+                    fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                    currentValue := fiberPlaceElement.Value
+                    match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                    if match {
+                        place := m[2]
+                        newValue := capacity "ct " place
+                        if (currentValue != newValue) {
+                            chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                        }
+                        fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
+                        currentCap := fiberCapElement.Value
+                        if (currentCap != capacity) {
+                            fiberCapElement.Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                        }
+                    }
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in SetFiberCapacity: " e.Message)
+            }
+        }
+    }
+
+    SetFiberSection(sectionNum) {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                ; Get current placement value
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    place := m[2]
+                    sectionLabel := sectionNum " - " place
+                    sectionElement := chromeEl.ElementFromPath(DFiberSecBoxC*)
+                    sectionElement.Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
+                    chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in SetFiberSection: " e.Message)
+            }
+        }
+    }
+ ; #endregion Fiber
+; #region Aerial Fiber
+
+
+AerialFiber() {
+    Line()
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            chromeEl.WaitElementFromPath(AFiber*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(AFiberSecC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+        } catch {
+            ; Ignore if the path isn’t found
+        }
+    }
+}
+
+    ToggleAerialFiberPlacement() {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    cap := m[1]
+                    place := m[2]
+                    newPlace := (place = "Aerial") ? "Underground" : "Aerial"
+                    newValue := cap "ct " newPlace
+                    chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in ToggleAerialFiberPlacement: " e.Message)
+            }
+        }
+    }
+
+    SetAerialFiberCapacity(capacity) {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    place := m[2]
+                    newValue := capacity "ct " place
+                    if (currentValue != newValue) {
+                        chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                    }
+                    fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
+                    currentCap := fiberCapElement.Value
+                    if (currentCap != capacity) {
+                        fiberCapElement.Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                    }
+                } else {
+                    ToggleAerialFiberPlacement()
+                    Sleep 100
+                    fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                    currentValue := fiberPlaceElement.Value
+                    match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                    if match {
+                        place := m[2]
+                        newValue := capacity "ct " place
+                        if (currentValue != newValue) {
+                            chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                        }
+                        fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
+                        currentCap := fiberCapElement.Value
+                        if (currentCap != capacity) {
+                            fiberCapElement.Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                        }
+                    }
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in SetAerialFiberCapacity: " e.Message)
+            }
+        }
+    }
+
+    SetAerialFiberSection(sectionNum) {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                sectionLabel := sectionNum
+                sectionElement := chromeEl.ElementFromPath(DFiberSecBoxC*)
+                sectionElement.Invoke()
+                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in SetAerialFiberSection: " e.Message)
+            }
+        }
+    }
+; #endregion Aerial Fiber
+; #region Backhaul
+
+BackhaulU() {
+    Line()
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            chromeEl.WaitElementFromPath(BackhaulUFiber*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+        } catch {
+            ; Ignore if the path isn’t found
+        }
+    }
+}
+
+BackhaulA() {
+    Line()
+    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+        chromeEl := UIA.ElementFromHandle(WinExist("A"))
+        try {
+            chromeEl.WaitElementFromPath(BackhaulAFiber*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+            chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+        } catch {
+            ; Ignore if the path isn’t found
+        }
+    }
+}
+    ToggleBackhaulPlacement(){
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    cap := m[1]
+                    place := m[2]
+                    newPlace := (place = "Underground") ? "Aerial" : "Underground"
+                    newValue := cap "ct " newPlace
+                    chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                }
+                chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+            } catch as e {
+                OutputDebug("Error in ToggleBackhaulPlacement: " e.Message)
+            }
+        }
+    }
+    SetBackhaulCapacity(value) {
+        if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
+            chromeEl := UIA.ElementFromHandle(WinExist("A"))
+            try {
+                fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                currentValue := fiberPlaceElement.Value
+                match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                if match {
+                    place := m[2]
+                    newValue := value "ct " place
+                    if (currentValue != newValue) {
+                        chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                    }
+                    fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
+                    currentCap := fiberCapElement.Value
+                    if (currentCap != value) {
+                        fiberCapElement.Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:value}]*).Invoke()
+                    }
+                } else {
+                    ToggleBackhaulPlacement()
+                    Sleep 100
+                    fiberPlaceElement := chromeEl.ElementFromPath(DFiberPlaceBoxC*)
+                    currentValue := fiberPlaceElement.Value
+                    match := RegExMatch(currentValue, "(\d+)ct (Underground|Aerial)", &m)
+                    if match {
+                        place := m[2]
+                        newValue := value "ct " place
+                        if (currentValue != newValue) {
+                            chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                        }
+                        fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
+                        currentCap := fiberCapElement.Value
+                        if (currentCap != value) {
+                            fiberCapElement.Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:value}]*).Invoke()
+                        }
+                    }
+                }
+            } catch as e {
+                OutputDebug("Error in SetBackhaulCapacity: " e.Message)
+            }
+            chromeEl.WaitElementFromPath(IDPathC*).Invoke()
+        }
+    }
+
+; #endregion Backhaul
+; #region Drops
 Drops() {
     Line()
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -709,8 +1213,6 @@ Drops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
     
@@ -761,10 +1263,9 @@ Drops() {
     Aqua() {
         SetDropColor("12 - Aqua", aquapath, NotePathC)
     }
-    
+; #endregion Drops
+; #region NAPs
 
-;----------------------------------------------------------------------
-    ;Data Entry Hotkeys
 
     NapPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"NAP"}] 
     TypePathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}]
@@ -835,8 +1336,6 @@ Drops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
 
@@ -848,7 +1347,7 @@ Drops() {
                 currentValue := NapTypeElement.Value
                 if (currentValue = "UG NAP") {
                     chromeEl.ElementFromPath(NapTypePathC*).Invoke()
-                    chromeEl.WaitElementFromPath(NapTypePathUGTieSelectC*).Invoke()
+                    chromeEl.WaitElementFromPath(NapTypePathAESelectC*).Invoke()
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 }
                 else if (currentValue = "AE Regular") {
@@ -870,8 +1369,6 @@ Drops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
 
@@ -889,8 +1386,6 @@ Drops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
 
@@ -905,6 +1400,8 @@ Drops() {
     SeventyTwo() {
         SetNapFiber("72ct", NapFiberPath72SelectC)
     }
+; #endregion NAPs
+; #region Slack Loops
 
     SlackLoopPlacement := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}]
     SlackLoopUnderground := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Underground"}]
@@ -976,8 +1473,6 @@ SlackLoops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
     SlackLoopLocation(){
@@ -997,8 +1492,6 @@ SlackLoops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
     ThirtyLoop() {
@@ -1024,9 +1517,10 @@ SlackLoops() {
     }
     Set70Tail(){
         if GetSlackLoopPlacement() = "Aerial" {
-            SlackLoopLocation()
+           SetSlackLoopLength("100' Tail", SlackLoop70Tail)
+        }else {
+           SetSlackLoopLength("70' Tail", SlackLoop70Tail)
         }
-        SetSlackLoopLength("70' Tail", SlackLoop70Tail)
     }
 
     SlackLoopImput(){
@@ -1046,8 +1540,6 @@ SlackLoops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
 
@@ -1064,12 +1556,10 @@ SlackLoops() {
             } catch as e {
                 OutputDebug("Error in SlackLoopImputLength: " e.Message)
             }
-        } else {
-            StoreSubmode()
         }
     }
 
-    SetFiberSection(sectionNum) {
+    SetLoopSection(sectionNum) {
         if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
             chromeEl := UIA.ElementFromHandle(WinExist("A"))
             try {
@@ -1083,8 +1573,7 @@ SlackLoops() {
             } catch {
                 ; Handle errors gracefully
             }
-        } else {
-            StoreSubmode()
         }
     }
+; #endregion Slack Loops
 ; #endregion
