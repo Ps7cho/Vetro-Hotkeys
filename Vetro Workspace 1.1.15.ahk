@@ -424,30 +424,87 @@ e:: HandleHotkey("e", "ThirtyTail")
 r:: HandleHotkey("r", "SixtyLoop")
 q:: HandleHotkey("q", "Set70Tail")
 
-1:: SetLoopSection(1)
-2:: SetLoopSection(2)
-3:: SetLoopSection(3)
-4:: SetLoopSection(4)
+1:: HandleHotkey("1", "SetLoopSection1")
+2:: HandleHotkey("2", "SetLoopSection2")
+3:: HandleHotkey("3", "SetLoopSection3")
+4:: HandleHotkey("4", "SetLoopSection4")
+
+SetLoopSection1() {
+    SetLoopSection(1)
+}
+SetLoopSection2() {
+    SetLoopSection(2)
+}
+SetLoopSection3() {
+    SetLoopSection(3)
+}
+SetLoopSection4() {
+    SetLoopSection(4)
+}
 
 #HotIf (SubMode = "Fiber")
 a:: HandleHotkey("a", "ToggleFiberPlacement")
-w:: SetFiberCapacity("24")
-e:: SetFiberCapacity("48")
-r:: SetFiberCapacity("72")
-1:: SetFiberSection(1)
-2:: SetFiberSection(2)
-3:: SetFiberSection(3)
-4:: SetFiberSection(4)
+w:: HandleHotkey("w", "SetFiberCapacity24")
+e:: HandleHotkey("e", "SetFiberCapacity48")
+r:: HandleHotkey("r", "SetFiberCapacity72")
+1:: HandleHotkey("1", "SetFiberSection1")
+2:: HandleHotkey("2", "SetFiberSection2")
+3:: HandleHotkey("3", "SetFiberSection3")
+4:: HandleHotkey("4", "SetFiberSection4")
+
+SetFiberCapacity24() {
+    SetFiberCapacity("24")
+}
+SetFiberCapacity48() {
+    SetFiberCapacity("48")
+}
+SetFiberCapacity72() {
+    SetFiberCapacity("72")
+}
+SetFiberSection1() {
+    SetFiberSection(1)
+}
+SetFiberSection2() {
+    SetFiberSection(2)
+}
+SetFiberSection3() {
+    SetFiberSection(3)
+}
+SetFiberSection4() {
+    SetFiberSection(4)
+}
 
 #HotIf (SubMode = "Aerial Fiber")
 a:: HandleHotkey("a", "ToggleAerialFiberPlacement")
-w:: SetAerialFiberCapacity("24")
-e:: SetAerialFiberCapacity("48")
-r:: SetAerialFiberCapacity("72")
-1:: SetAerialFiberSection(1)
-2:: SetAerialFiberSection(2)
-3:: SetAerialFiberSection(3)
-4:: SetAerialFiberSection(4)
+w:: HandleHotkey("w", "SetAerialFiberCapacity24")
+e:: HandleHotkey("e", "SetAerialFiberCapacity48")
+r:: HandleHotkey("r", "SetAerialFiberCapacity72")
+1:: HandleHotkey("1", "SetAerialFiberSection1")
+2:: HandleHotkey("2", "SetAerialFiberSection2")
+3:: HandleHotkey("3", "SetAerialFiberSection3")
+4:: HandleHotkey("4", "SetAerialFiberSection4")
+
+SetAerialFiberCapacity24() {
+    SetAerialFiberCapacity("24")
+}
+SetAerialFiberCapacity48() {
+    SetAerialFiberCapacity("48")
+}
+SetAerialFiberCapacity72() {
+    SetAerialFiberCapacity("72")
+}
+SetAerialFiberSection1() {
+    SetAerialFiberSection(1)
+}
+SetAerialFiberSection2() {
+    SetAerialFiberSection(2)
+}
+SetAerialFiberSection3() {
+    SetAerialFiberSection(3)
+}
+SetAerialFiberSection4() {
+    SetAerialFiberSection(4)
+}
 
 #HotIf (SubMode = "Conduit")
 w:: HandleHotkey("w", "Conduit1x25")
@@ -461,12 +518,21 @@ e:: HandleHotkey("e", "SetBackhaulCapacity48")
 r:: HandleHotkey("r", "SetBackhaulCapacity72")
 
 SetBackhaulCapacity24() {
+    HandleHotkey("w", "SetBackhaulCapacity24_Internal")
+}
+SetBackhaulCapacity24_Internal() {
     SetBackhaulCapacity("24")
 }
 SetBackhaulCapacity48() {
+    HandleHotkey("e", "SetBackhaulCapacity48_Internal")
+}
+SetBackhaulCapacity48_Internal() {
     SetBackhaulCapacity("48")
 }
 SetBackhaulCapacity72() {
+    HandleHotkey("r", "SetBackhaulCapacity72_Internal")
+}
+SetBackhaulCapacity72_Internal() {
     SetBackhaulCapacity("72")
 }
 #HotIf
@@ -646,8 +712,8 @@ ServiceLocations() {
     ConduitTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}]
     ConduitTypeC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}, {T:8}, {T:7, N:"1 x 1.25`""}]
 
-    DFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Distribution | Underground"}]
-    AFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Distribution | Aerial"}]
+    DFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Distribution | Underground"}]    
+    AFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Fiber - Distribution | Aerial"}]
     DFiberCapBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}]
     DFiberCapC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:"24"}]
     DFiberPlaceBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}]
@@ -821,7 +887,7 @@ Fiber() {
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            chromeEl.WaitElementFromPath(DFiber*).Invoke()
+            chromeEl.WaitElementFromPath(DFiber*).Invoke()            
             chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberCapBoxC*).Invoke()
             chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
