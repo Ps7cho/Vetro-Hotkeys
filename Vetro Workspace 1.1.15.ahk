@@ -17,125 +17,252 @@ MButton:: {
     }
 return
 }
-!q:: Unlock()
 !Esc:: Reload
 #HotIf 
 
+debugmode := true
+
 ; #region Paths
-savePathC := [{T:30}, {T:26, i:-1}, {T:0, N:"Save"}]
-deletePathC := [{T:30}, {T:26, i:-1}, {T:0,N:"Delete"}]
-featureDeletionPathC := [{T:30}, {T:26, i:-1}, {T:25, A:"feature-deletion-modal"}, {T:26, A:"feature-deletion-modal___BV_modal_content_"}, {T:0, i:-1}]
-ClosePanelPathC := [{T:30}, {T:26, i:-1}, {T:0}] 
-UnlockPathC := [{T:30}, {T:26, i:-1}, {T:21, i:6}, {T:0}]
 
-PencilPathC := [{T:30}, {T:26, i:-1}, {T:21, i:-1}, {T:0,N:"Edit"}]
-PointPathC := [{T:30}, {T:26, i:-1}, {T:21}, {T:0,N:" Point"}]
-LinePathC := [{T:30}, {T:26, i:-1}, {T:21}, {T:0,N:" Line"}]
-PolygonPathC := [{T:30}, {T:26, i:-1}, {T:21}, {T:0,N:" Polygon"}]
+; Define base path variables for reuse
+baseT := 30
+baseT2 := 26
+baseT3 := 30 ; Added missing assignment for baseT3
+baseI21 := 21
+baseI25 := 25
+baseT0 := 0
+baseI := -1
+baseI2 := 2
+baseI3 := 3
+baseI4 := 4
+baseI5 := 5
+baseI6 := 6
+baseI7 := 7
+baseI8 := 8
+baseI9 := 9
 
-MapDataPathC := [{T:30}, {T:26, i:-1}, {T:21, i:2}, {T:0}, {T:6}]
-NetworkCheckPathC := [{T:30}, {T:26, i:-1}, {T:8}, {T:7, i:2}, {T:2}]
 
-;Discovery Paths
+; Common strings
+strSave := "Save"
+strDelete := "Delete"
+strFeatureDeletionModal := "feature-deletion-modal"
+strFeatureDeletionModalContent := "feature-deletion-modal___BV_modal_content_"
+strEdit := "Edit"
+strPoint := " Point"
+strLine := " Line"
+strPolygon := " Polygon"
+strMessengerWire := "Messenger Wire"
+strUsing := "Using"
+strUnits := "Units"
+strName := "name"
+strLength := "Length"
+strInputTotalLength := "input-total-length"
+strPueRow := "PUE & ROW"
+strPlatMapLinks := "PLAT Map Links"
+strRowCenterline := "ROW Centerline"
+strServiceLocation := "Service Location"
+strID := "ID"
+strPreliminaryDrops := "Preliminary Drops"
+strUnderground := "Underground"
+strAerial := "Aerial"
+strDV := "DV"
+strLDV := "LDV"
+strConduit := "Conduit"
+strInputConduitType := "input-conduit-type"
+strConduitType1 := "1 x 1.25`""
+strConduitType2 := "2 x 1.25`""
+strConduitType2Road := "2 x 1.25`" Road Shot"
+strFiberDistUG := "Fiber - Distribution | Underground"
+strFiberDistAerial := "Fiber - Distribution | Aerial"
+strInputFiberCapacity := "input-fiber-capacity"
+strInputPlacement := "input-placement"
+strInputFiberSections := "input-fiber-sections"
+strInputColor := "input-color"
+strInputNote := "input-note"
+strFiberDrop := "Fiber - Drop"
+strFiberBackhaulUG := "Fiber - Backhaul | Underground"
+strFiberBackhaulAerial := "Fiber - Backhaul | Aerial"
+strNAP := "NAP"
+strInputType := "input-type"
+strInputNapLocation := "input-nap-location"
+strInputFiberCount := "input-fiber-count"
+strUGNAP := "UG NAP"
+strAERegular := "AE Regular"
+strUGTiePoint := "UG Tie Point"
+strAETiePoint := "AE Tie Point"
+strSlackLoop := "Slack Loop"
+strInputSlackLoop := "input-slack-loop"
+strBackhaul := "Backhaul"
 
-FeaturePanelPathC := [{T:30}, {T:26, i:-1}, {T:5}]
-LayerPathC := [{T:30}, {T:26, i:-1}, {T:3}]
-AutosavePathC := [{T:30}, {T:26, i:-1}, {T:2}] 
-MessengerPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Messenger Wire"}]
-UsingPathC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-using"}]
-UsingSelectPathC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-using"}, {T:8}, {T:7, N:"Using"}]
-UnitsPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Units"}]
-NamePathC := [{T:30}, {T:26, i:-1}, {T:4}]
-UnitsPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Units"}]
-LengthPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Length"}]
-LengthInputPathC := [{T:30}, {T:26, i:-1}, {T:4, A:"input-total-length"}]
-PUEROWPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"PUE & ROW"}]
-PLATMapLinksPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"PLAT Map Links"}]
-ROWCenterlinePathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"ROW Centerline"}]
-ServiceLocation := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Service Location"}]
-IDPathC := [{T:30}, {T:26, i:-1}, {T:4}]
+; Color strings
+strBlue := "1 - Blue"
+strOrange := "2 - Orange"
+strGreen := "3 - Green"
+strBrown := "4 - Brown"
+strSlate := "5 - Slate"
+strWhite := "6 - White"
+strRed := "7 - Red"
+strBlack := "8 - Black"
+strYellow := "9 - Yellow"
+strViolet := "10 - Violet"
+strRose := "11 - Rose"
+strAqua := "12 - Aqua"
 
-;Planning Paths
+; Fiber counts
+str24 := "24"
+str48 := "48"
+str72 := "72"
+str24ct := "24ct"
+str48ct := "48ct"
+str72ct := "72ct"
 
-PreliminaryDropsC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Preliminary Drops"}]
-PDropSaveC := [{T:30}, {T:26, i:-1}, {T:2}]
-PDropTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-type"}]
-PDropTypeC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-type"}, {T:8}, {T:7, N:"Underground"}]
+; Slack loop lengths
+str30Loop := "30' Loop"
+str60Loop := "60' Loop"
+str30Tail := "30' Tail"
+str16Loop := "16' Loop"
+str16Tail := "16' Tail"
+str24Loop := "24' Loop"
+str70Tail := "70' Tail"
+str100Tail := "100' Tail"
 
-VaultPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Vaults"}]
-VaultTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-size"}]
-VaultTypeC := [{T:30}, {T:26, i:-1}, {T:3, A:"input-size"}, {T:8}, {T:7, N:"DV"}]
-VaultTypeB := [{T:30}, {T:26, i:-1}, {T:3, A:"input-size"}, {T:8}, {T:7, N:"LDV"}]
+; Section labels
+strSection1UG := "1 - Underground"
+strSection1Aerial := "1 - Aerial"
+strSection1 := "1"
 
-ConduitPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Conduit"}]
-ConduitTypeBoxC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}]
-ConduitTypeC := [{T:30}, {T:26, i:-1}, {T:3,A:"input-conduit-type"}, {T:8}, {T:7, N:"1 x 1.25`""}]
+MainPath                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseT0}]
 
-DFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Distribution | Underground"}]    
-AFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Fiber - Distribution | Aerial"}]
-DFiberCapBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}]
-DFiberCapC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:"24"}]
-DFiberPlaceBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}]
-DFiberPlaceC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}, {T:8}, {T:7, N:"24ct Underground"}]
-DFiberSecBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-sections"}]
-DFiberSecC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:"1 - Underground"}]
-AFiberSecC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:"1"}]
+; Path variables
+savePathC               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseT0}]
+deletePathC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseT0}]
+featureDeletionPathC    := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI25, A:strFeatureDeletionModal}, {T:baseT2, A:strFeatureDeletionModalContent}, {T:baseT0, i:baseI}]
+ClosePanelPathC         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT0}]
 
-DropFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Drop"}]
-DropCapC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:"72"}]
-DropPlaceC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-placement"}, {T:8}, {T:7, N:"Underground"}]
-DropColorBoxC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-color"}]
-DropColorC := [{T:30}, {T:26, i:-1},  {T:3, A:"input-color"}, {T:8}, {T:7, N:"1 - Blue"}]
+PencilPathC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI21, i:baseI6}, {T:baseT0, i:baseI2}, {T:baseI6}]
+PointPathC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI21}, {T:0, A:"point-button"}]
+LinePathC               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI21}, {T:0,A:"linestring-button"}]
+PolygonPathC            := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI21}, {T:0, A:"polygon-button"}]
 
-IDPathC := [{T:30}, {T:26, i:-1}, {T:4}]
+MapDataPathC            := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI21, i:baseI2}, {T:baseT0}, {T:6}]
+NetworkCheckPathC       := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI8}, {T:baseI7, i:baseI2}, {T:2}]
 
-BackhaulUFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Backhaul | Underground"}]
-BackhaulAFiber := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7, N:"Fiber - Backhaul | Aerial"}]
+; Discovery Paths
+FeaturePanelPathC       := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}]
+IDPathC                 := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI4}]
+NamePathC               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI4}]
+;LayerPathC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI3}]
+AutosavePathC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI2}]
 
-AutosavePathNetworkC := [{T:30}, {T:26, i:-1},  {T:2}]
+UsingPathC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-using"}]
+UsingSelectPathC        := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-using"}, {T:baseI8}, {T:baseI7, N:strUsing}]
 
-NapPathC := [{T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"NAP"}] 
-TypePathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}]
-TypeSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}, {T:8}, {T:7,N:"UG NAP"}]
-LocationPathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-nap-location"}]
-LocationSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
-FiberCountPathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-fiber-count"}]
-FiberCountSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
 
-NapTypePathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}]
-NapTypePathUGSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}, {T:8}, {T:7, n:"UG NAP"}]
-NapTypePathAESelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}, {T:8}, {T:7, n:"AE Regular"}]
-NapTypePathUGTieSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}, {T:8}, {T:7, n:"UG Tie Point"}]
-NapTypePathAETieSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-type"}, {T:8}, {T:7, n:"AE Tie Point"}]
+PUEROWPathC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strPueRow}]
+PLATMapLinksPathC       := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strPlatMapLinks}]
+ROWCenterlinePathC      := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strRowCenterline}]
+ServiceLocation         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strServiceLocation}]
+UnitsPathC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strUnits}]
+PreliminaryDropsC       := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strPreliminaryDrops}]
+MessengerPathC          := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strMessengerWire}]
+LengthPathC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strLength}]
+DFiber                  := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strFiberDistUG}]
+AFiber                  := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strFiberDistAerial}]
+ConduitPathC            := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strConduit}]
+VaultPathC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:"Vaults"}]
+NapPathC                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strNAP}]
+SlackLoopPath           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:"Slack Loop"}]
+BackhaulUFiber          := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strFiberBackhaulUG}]
+BackhaulAFiber          := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strFiberBackhaulAerial}]
 
-NapLocationPathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-nap-location"}]
-NapLocationPathUGSelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Underground"}]
-NapLocationPathAESelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-nap-location"}, {T:8}, {T:7, N:"Aerial"}]
+LengthInputPathC        := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI4, A:strInputTotalLength}]
+NotePathC               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI4, A:strInputNote}]
+SlackLoopLength         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI4}]
 
-NapFiberPathC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-fiber-count"}]
-NapFiberPath24SelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"24ct"}]
-NapFiberPath48SelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"48ct"}]
-NapFiberPath72SelectC := [{T:30}, {T:26, i:-1},  {T:3,A:"input-fiber-count"}, {T:8}, {T:7, N:"72ct"}]
+PDropTypeBoxC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}]
+PDropTypeC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}, {T:baseI8}, {T:baseI7, N:strUnderground}]
 
-SlackLoopPlacement := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}]
-SlackLoopUnderground := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Underground"}]
-SlackLoopAerial := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Aerial"}]
-SlackLoopBackhaul := [{T:30}, {T:26, i:-1}, {T:3,A:"input-placement"}, {T:8}, {T:7,N:"Backhaul"}]
 
-SlackLoopSelect := [{T:30}, {T:26, i:-1},  {T:3,A:"input-slack-loop"}]
-SlackLoop30Loop := [{T:30}, {T:26, i:-1},  {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"30' Loop"}]
-SlackLoop60Loop := [{T:30}, {T:26, i:-1},  {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"60' Loop"}]
-SlackLoop30Tail := [{T:30}, {T:26, i:-1},  {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"30' Tail"}]
+VaultTypeBoxC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-size"}]
+VaultTypeC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-size"}, {T:baseI8}, {T:baseI7, N:strDV}]
+VaultTypeB              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-size"}, {T:baseI8}, {T:baseI7, N:strLDV}]
 
-; Add new paths for aerial loops
-SlackLoop16Loop := [{T:30}, {T:26, i:-1}, {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"16' Loop"}]
-SlackLoop16Tail := [{T:30}, {T:26, i:-1}, {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"16' Tail"}]
-SlackLoop24Loop := [{T:30}, {T:26, i:-1}, {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"24' Loop"}]
-SlackLoop70Tail := [{T:30}, {T:26, i:-1}, {T:3,A:"input-slack-loop"}, {T:8}, {T:7,N:"70' Tail"}]
 
-FiberSectionPath := [{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}]
-FiberSectionUnderground := [{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:"1 - Underground"}]
-FiberSectionAerial := [{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:"1 - Aerial"}]
+ConduitTypeBoxC         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputConduitType}]
+ConduitTypeC            := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputConduitType}, {T:baseI8}, {T:baseI7, N:strConduitType1}]
+
+DFiberCapBoxC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCapacity}]
+DFiberCapC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCapacity}, {T:baseI8}, {T:baseI7, N:str24}]
+DFiberPlaceBoxC         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}]
+DFiberPlaceC            := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}, {T:baseI8}, {T:baseI7, N:str24 "ct " strUnderground}]
+DFiberSecBoxC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberSections}]
+DFiberSecC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberSections}, {T:baseI8}, {T:baseI7, N:strSection1UG}]
+AFiberSecC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberSections}, {T:baseI8}, {T:baseI7, N:strSection1}]
+
+DropFiber               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3}, {T:baseI8}, {T:baseI7, N:strFiberDrop}]
+DropCapC                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCapacity}, {T:baseI8}, {T:baseI7, N:str72}]
+DropPlaceC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}, {T:baseI8}, {T:baseI7, N:strUnderground}]
+DropColorBoxC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}]
+DropColorC              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strBlue}]
+
+
+; NAP Paths
+TypePathC               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}]
+TypeSelectC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}, {T:baseI8}, {T:baseI7, N:strUGNAP}]
+LocationPathC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputNapLocation}]
+LocationSelectC         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputNapLocation}, {T:baseI8}, {T:baseI7, N:strUnderground}]
+FiberCountPathC         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCount}]
+FiberCountSelectC       := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCount}, {T:baseI8}, {T:baseI7, N:str48ct}]
+
+NapTypePathC            := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}]
+NapTypePathUGSelectC    := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}, {T:baseI8}, {T:baseI7, N:strUGNAP}]
+NapTypePathAESelectC    := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}, {T:baseI8}, {T:baseI7, N:strAERegular}]
+NapTypePathUGTieSelectC := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}, {T:baseI8}, {T:baseI7, N:strUGTiePoint}]
+NapTypePathAETieSelectC := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputType}, {T:baseI8}, {T:baseI7, N:strAETiePoint}]
+
+NapLocationPathC        := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputNapLocation}]
+NapLocationPathUGSelectC := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputNapLocation}, {T:baseI8}, {T:baseI7, N:strUnderground}]
+NapLocationPathAESelectC := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputNapLocation}, {T:baseI8}, {T:baseI7, N:strAerial}]
+
+NapFiberPathC           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCount}]
+NapFiberPath24SelectC   := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCount}, {T:baseI8}, {T:baseI7, N:str24ct}]
+NapFiberPath48SelectC   := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCount}, {T:baseI8}, {T:baseI7, N:str48ct}]
+NapFiberPath72SelectC   := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberCount}, {T:baseI8}, {T:baseI7, N:str72ct}]
+
+; Slack Loop Paths
+SlackLoopPlacement      := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}]
+SlackLoopUnderground    := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}, {T:baseI8}, {T:baseI7, N:strUnderground}]
+SlackLoopAerial         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}, {T:baseI8}, {T:baseI7, N:strAerial}]
+SlackLoopBackhaul       := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputPlacement}, {T:baseI8}, {T:baseI7, N:strBackhaul}]
+
+SlackLoopSelect         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}]
+SlackLoop30Loop         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str30Loop}]
+SlackLoop60Loop         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str60Loop}]
+SlackLoop30Tail         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str30Tail}]
+SlackLoop16Loop         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str16Loop}]
+SlackLoop16Tail         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str16Tail}]
+SlackLoop24Loop         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str24Loop}]
+SlackLoop70Tail         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputSlackLoop}, {T:baseI8}, {T:baseI7, N:str70Tail}]
+
+FiberSectionPath        := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberSections}]
+FiberSectionUnderground := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberSections}, {T:baseI8}, {T:baseI7, N:strSection1UG}]
+FiberSectionAerial      := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputFiberSections}, {T:baseI8}, {T:baseI7, N:strSection1Aerial}]
+
+; Drop color paths
+DropColorPath           := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}]
+bluepath                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strBlue}]
+orangepath              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strOrange}]
+greenpath               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strGreen}]
+brownpath               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strBrown}]
+slatepath               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strSlate}]
+whitepath               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strWhite}]
+redpath                 := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strRed}]
+blackpath               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strBlack}]
+yellowpath              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strYellow}]
+violetpath              := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strViolet}]
+rosepath                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strRose}]
+aquapath                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:strInputColor}, {T:baseI8}, {T:baseI7, N:strAqua}]
+
 
 ; #endregion----------------------------------------------------------------------
 ; #region Basic Functions
@@ -191,7 +318,7 @@ ClosePanel() {
             chromeEl.ElementFromPath(ClosePanelPathC*).Invoke()
         } catch {
             ; Log or ignore if the path isn’t found
-            ; OutputDebug "ClosePanelPathC not found"
+            ToolTip("Breakpoint reached in ClosePanel function. Path not found.")
         }
     } 
 
@@ -203,26 +330,10 @@ ClosePanel() {
 }
 
 
-Unlock() {
-    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        chromeEl := UIA.ElementFromHandle(WinExist("A"))
-        ;try {
-            chromeEl.ElementFromPath(UnlockPathC*).Invoke()
-        ;} catch {
-            ; Ignore if the path isn’t found
-        ;}
-    } 
-}
 
 ; #endregion----------------------------------------------------------------------
 ; #region Global Functions and paths
 
-
-; Returns a copy of the checkboxPathC array with the {T:7, i:...} value replaced by newIndex
-GetCheckboxPathC(newIndex) {
-    path := [{T:30}, {T:26, i:-1}, {T:8}, {T:7, i:newIndex}, {T:2}]
-    return path
-}
 
 ShowHelp() {
     global Mode, SubMode
@@ -265,10 +376,11 @@ Point() {
         try {
             chromeEl.ElementFromPath(PencilPathC*).Invoke()
             chromeEl.WaitElementFromPath(PointPathC*).Invoke()
-            chromeEl.WaitElementFromPath(FeaturePanelPathC*).Select()
-            chromeEl.WaitElementFromPath(LayerPathC*).Invoke()
+            chromeEl.WaitElementFromPath(FeaturePanelPathC*).Invoke()
         } catch {
-            ; Ignore if the path isn’t found
+            if debugmode {
+                ToolTip("Breakpoint reached in Point function. Path not found.")
+            }
         }
     }
 }
@@ -281,10 +393,11 @@ Line() {
         try {
             chromeEl.ElementFromPath(PencilPathC*).Invoke()
             chromeEl.WaitElementFromPath(LinePathC*).Invoke()
-            chromeEl.WaitElementFromPath(FeaturePanelPathC*).Select()
-            chromeEl.WaitElementFromPath(LayerPathC*).Invoke()
+            chromeEl.WaitElementFromPath(FeaturePanelPathC*).Invoke()
         } catch {
-            ; Ignore if the path isn’t found
+            if debugmode {
+                ToolTip("Breakpoint reached in Line function. Path not found.")
+            }
         }
     }
 }
@@ -297,10 +410,11 @@ Polygon() {
         try {
             chromeEl.ElementFromPath(PencilPathC*).Invoke()
             chromeEl.WaitElementFromPath(PolygonPathC*).Invoke()
-            chromeEl.WaitElementFromPath(FeaturePanelPathC*).Select()
-            chromeEl.WaitElementFromPath(LayerPathC*).Invoke()
+            chromeEl.WaitElementFromPath(FeaturePanelPathC*).Invoke()
         } catch {
-            ; Ignore if the path isn’t found
+            if debugmode {
+                ToolTip("Breakpoint reached in Polygon function. Path not found.")
+            }
         }
     }
 }
@@ -310,52 +424,6 @@ MapDataBox() {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
     
         chromeEl.WaitElementFromPath(MapDataPathC*).Invoke()
-    }
-}
-
-ToggleLayerCheckbox(index) {
-    path := GetCheckboxPathC(index)
-    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        chromeEl := UIA.ElementFromHandle(WinExist("A"))
-        try {
-            checkboxEl := chromeEl.ElementFromPath(path*)
-            if checkboxEl
-                checkboxEl.Toggle()
-        } catch {
-            ; Ignore if the element is not found or not toggleable
-        }
-    }
-}
-
-CheckLayerCheckbox(index) {
-    path := GetCheckboxPathC(index)
-    if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
-        chromeEl := UIA.ElementFromHandle(WinExist("A"))
-        try {
-            checkboxEl := chromeEl.ElementFromPath(path*)
-            if checkboxEl {
-                return checkboxEl.ToggleState ; 0 = Off, 1 = On, 2 = Indeterminate
-            }
-        } catch {
-            ; Ignore if the element is not found or not toggleable
-        }
-    }
-    return -1 ; Return -1 if not found or not active
-}
-
-TurnOffAllLayerCheckboxes() {
-    ; Turn off all layer checkboxes using CheckLayerCheckbox
-    maxIndex := 100
-    Loop maxIndex + 1 {
-        idx := A_Index - 1
-        state := CheckLayerCheckbox(idx)
-        
-        if (state = 1) {
-            ToggleLayerCheckbox(idx)
-
-        }
-        Sleep 100
-        Send("{PgDn}")
     }
 }
     
@@ -727,7 +795,7 @@ ServiceLocations() {
             Point()
             chromeEl.WaitElementFromPath(ServiceLocation*).Invoke()
             chromeEl.WaitElementFromPath(IDPathC*).Invoke()
-            chromeEl.WaitElementFromPath(AutoSavePathNetworkC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
             chromeEl.WaitElementFromPath(IDPathC*).Invoke()
         
             ; Ignore if the path isn’t found
@@ -897,10 +965,12 @@ ServiceLocations() {
                 chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberSecC*).Invoke()
-                chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
                 chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             } catch {
-                ; Ignore if the path isn’t found
+                if debugmode {
+                    ToolTip("Breakpoint reached in Fiber function. Path not found.")
+                }
             }
         }
     }
@@ -919,7 +989,7 @@ ServiceLocations() {
                         newPlace := (place = "Underground") ? "Aerial" : "Underground"
                         newValue := cap "ct " newPlace
                         chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:baseT3}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                         ; Get current section number
                         fiberSecElement := chromeEl.ElementFromPath(DFiberSecBoxC*)
                         sectionValue := fiberSecElement.Value
@@ -928,7 +998,7 @@ ServiceLocations() {
                             sectionNum := sm[1]
                             sectionLabel := sectionNum " - " newPlace
                             chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:baseT3}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
                         }
                     }
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
@@ -950,13 +1020,13 @@ ServiceLocations() {
                         newValue := capacity "ct " place
                         if (currentValue != newValue) {
                             chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                         }
                         fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
                         currentCap := fiberCapElement.Value
                         if (currentCap != capacity) {
                             fiberCapElement.Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
                         }
                     } else {
                         ; If not matched, try toggling placement and retry
@@ -970,13 +1040,13 @@ ServiceLocations() {
                             newValue := capacity "ct " place
                             if (currentValue != newValue) {
                                 chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                             }
                             fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
                             currentCap := fiberCapElement.Value
                             if (currentCap != capacity) {
                                 fiberCapElement.Invoke()
-                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
                             }
                         }
                     }
@@ -1000,7 +1070,7 @@ ServiceLocations() {
                         sectionLabel := sectionNum " - " place
                         sectionElement := chromeEl.ElementFromPath(DFiberSecBoxC*)
                         sectionElement.Invoke()
-                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
                         chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                     }
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
@@ -1026,7 +1096,7 @@ ServiceLocations() {
                 chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberSecBoxC*).Invoke()
                 chromeEl.WaitElementFromPath(AFiberSecC*).Invoke()
-                chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
                 chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             } catch {
                 ; Ignore if the path isn’t found
@@ -1047,7 +1117,7 @@ ServiceLocations() {
                         newPlace := (place = "Aerial") ? "Underground" : "Aerial"
                         newValue := cap "ct " newPlace
                         chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                     }
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 } catch as e {
@@ -1068,13 +1138,13 @@ ServiceLocations() {
                         newValue := capacity "ct " place
                         if (currentValue != newValue) {
                             chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                         }
                         fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
                         currentCap := fiberCapElement.Value
                         if (currentCap != capacity) {
                             fiberCapElement.Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
                         }
                     } else {
                         ToggleAerialFiberPlacement()
@@ -1087,13 +1157,13 @@ ServiceLocations() {
                             newValue := capacity "ct " place
                             if (currentValue != newValue) {
                                 chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                             }
                             fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
                             currentCap := fiberCapElement.Value
                             if (currentCap != capacity) {
                                 fiberCapElement.Invoke()
-                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
+                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:capacity}]*).Invoke()
                             }
                         }
                     }
@@ -1111,7 +1181,7 @@ ServiceLocations() {
                     sectionLabel := sectionNum
                     sectionElement := chromeEl.ElementFromPath(DFiberSecBoxC*)
                     sectionElement.Invoke()
-                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
+                    chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]*).Invoke()
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 } catch as e {
                     OutputDebug("Error in SetAerialFiberSection: " e.Message)
@@ -1132,7 +1202,7 @@ ServiceLocations() {
                 chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
-                chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
                 chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             } catch {
                 ; Ignore if the path isn’t found
@@ -1151,7 +1221,7 @@ ServiceLocations() {
                 chromeEl.WaitElementFromPath(DFiberCapC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
                 chromeEl.WaitElementFromPath(DFiberPlaceC*).Invoke()
-                chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
                 chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             } catch {
                 ; Ignore if the path isn’t found
@@ -1171,7 +1241,7 @@ ServiceLocations() {
                         newPlace := (place = "Underground") ? "Aerial" : "Underground"
                         newValue := cap "ct " newPlace
                         chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                        chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                     }
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
                 } catch as e {
@@ -1191,13 +1261,13 @@ ServiceLocations() {
                         newValue := value "ct " place
                         if (currentValue != newValue) {
                             chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                         }
                         fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
                         currentCap := fiberCapElement.Value
                         if (currentCap != value) {
                             fiberCapElement.Invoke()
-                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:value}]*).Invoke()
+                            chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:value}]*).Invoke()
                         }
                     } else {
                         ToggleBackhaulPlacement()
@@ -1210,13 +1280,13 @@ ServiceLocations() {
                             newValue := value "ct " place
                             if (currentValue != newValue) {
                                 chromeEl.WaitElementFromPath(DFiberPlaceBoxC*).Invoke()
-                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
+                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-placement"}, {T:8}, {T:7, N:newValue}]*).Invoke()
                             }
                             fiberCapElement := chromeEl.ElementFromPath(DFiberCapBoxC*)
                             currentCap := fiberCapElement.Value
                             if (currentCap != value) {
                                 fiberCapElement.Invoke()
-                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:value}]*).Invoke()
+                                chromeEl.WaitElementFromPath([{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-capacity"}, {T:8}, {T:7, N:value}]*).Invoke()
                             }
                         }
                     }
@@ -1242,7 +1312,7 @@ ServiceLocations() {
                 chromeEl.WaitElementFromPath(DropPlaceC*).Invoke()
                 chromeEl.WaitElementFromPath(DropColorBoxC*).Invoke()
                 chromeEl.WaitElementFromPath(DropColorC*).Invoke()
-                chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+                chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
                 Sleep 100
                 Send("{PgUp 4}")
             } catch {
@@ -1252,20 +1322,6 @@ ServiceLocations() {
         }
     }
 
-        DropColorPath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}]
-        bluepath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"1 - Blue"}]
-        orangepath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"2 - Orange"}]
-        greenpath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"3 - Green"}]
-        brownpath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"4 - Brown"}]
-        slatepath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"5 - Slate"}]
-        whitepath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"6 - White"}]
-        redpath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"7 - Red"}]
-        blackpath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"8 - Black"}]
-        yellowpath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"9 - Yellow"}]
-        violetpath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"10 - Violet"}]
-        rosepath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"11 - Rose"}]
-        aquapath := [{T:30}, {T:26, i:-1},  {T:3,A:"input-color"}, {T:8}, {T:7,N:"12 - Aqua"}]
-        NotePathC := [{T:30}, {T:26, i:-1},  {T:4,A:"input-note"}]
 
         SetDropColor(expectedValue, pathToSelectColor, NotePathC) {
             if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
@@ -1349,7 +1405,7 @@ ServiceLocations() {
                     chromeEl.WaitElementFromPath(LocationSelectC*).Invoke()
                     chromeEl.WaitElementFromPath(FiberCountPathC*).Invoke()
                     chromeEl.WaitElementFromPath(FiberCountSelectC*).Invoke()
-                    chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+                    chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
                     chromeEl.WaitElementFromPath(IDPathC*).Invoke()
 
                 } catch {
@@ -1461,7 +1517,9 @@ GetSlackLoopPlacement() {
         slackLoopElement := chromeEl.ElementFromPath(SlackLoopPlacement*)
         return slackLoopElement.Value
         } catch {
-            
+           if debugmode { 
+               ToolTip("Breakpoint reached in GetSlackLoopPlacement function. Path not found.")
+           }
         }
     }
     return ""
@@ -1472,12 +1530,12 @@ SlackLoops() {
     if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
         chromeEl := UIA.ElementFromHandle(WinExist("A"))
         try {
-            chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1}, {T:3}, {T:8}, {T:7,N:"Slack Loop"}).Invoke()
+            chromeEl.WaitElementFromPath(SlackLoopPath*).Invoke()
             chromeEl.WaitElementFromPath(SlackLoopPlacement*).Invoke()
             chromeEl.WaitElementFromPath(SlackLoopUnderground*).Invoke()
             chromeEl.WaitElementFromPath(SlackLoopSelect*).Invoke()
             chromeEl.WaitElementFromPath(SlackLoop30Loop*).Invoke()
-            chromeEl.WaitElementFromPath(AutosavePathNetworkC*).Invoke()
+            chromeEl.WaitElementFromPath(AutosavePathC*).Invoke()
             chromeEl.WaitElementFromPath(IDPathC*).Invoke()
             SlackLoopImputLength(30)
             ThirtyLoop()
@@ -1581,7 +1639,7 @@ SlackLoops() {
         if WinActive("ahk_exe chrome.exe") && InStr(WinGetTitle("A"), "VETRO") {
             chromeEl := UIA.ElementFromHandle(WinExist("A"))
             try {
-                chromeEl.WaitElementFromPath({T:30}, {T:26, i:-1},  {T:4}).Invoke() 
+                chromeEl.WaitElementFromPath(SlackLoopLength*).Invoke() 
                 sleep 100
                 Send "^a{Del}"
                 sleep 50
@@ -1600,7 +1658,7 @@ SlackLoops() {
                 sectionElement := chromeEl.ElementFromPath(FiberSectionPath*)
                 currentPlacement := GetSlackLoopPlacement()
                 sectionLabel := sectionNum " - " (currentPlacement = "Aerial" ? "Aerial" : "Underground")
-                sectionPath := [{T:30}, {T:26, i:-1}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]
+                sectionPath := [{T:30}, {T:26, i:-1}, {T:baseT2}, {T:3, A:"input-fiber-sections"}, {T:8}, {T:7, N:sectionLabel}]
                 sectionElement.Invoke()
                 chromeEl.WaitElementFromPath(sectionPath*).Invoke()
                 chromeEl.WaitElementFromPath(IDPathC*).Invoke()
