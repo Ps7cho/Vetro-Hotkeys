@@ -136,7 +136,7 @@ MainPath                := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseT
 ; Path variables
 savePathC               := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseT0}]
 deletePathC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseT0}]
-featureDeletionPathC    := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT2}, {T:baseI25, A:strFeatureDeletionModal}, {T:baseT2, A:strFeatureDeletionModalContent}, {T:baseT0, i:baseI}]
+featureDeletionPathC    := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI25, A:"feature-deletion-modal"}, {T:baseT2,A:"feature-deletion-modal___BV_modal_content_"}, {T:baseT0, i:baseI}]
 ClosePanelPathC         := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseT0}]
 
 PencilPathC             := [{T:baseT}, {T:baseT2, i:baseI}, {T:baseI21, i:baseI6}, {T:baseT0, i:baseI2}, {T:baseI6}]
